@@ -11,7 +11,7 @@ export default function NavBar() {
   const [showMenu, setShowMenu]= useState(false)
   return (
     <>
-      <div className="flex sm:invisible justify-between p-6 items-center container w-screen border mt-4 fixed inset-0 h-20 bg-stone-50 dark:bg-stone-700 shadow-lg ">
+      <div className="flex sm:invisible justify-between p-6 items-center container w-screen border mt-4 fixed inset-0 h-20 bg-stone-50 dark:bg-stone-700 shadow-lg z-20 ">
         <div className="w-1/8 text-center md:invisible md:w-0">
           <img
             src="img/shoeshoplogo.jpg"
@@ -59,7 +59,7 @@ export default function NavBar() {
               </svg>
             </div>
             {/* <Link href={"/"}>ثبت نام / ورود</Link> */}
-            <div className="flex relative items-center hover: cursor-pointer group">
+            <div className="flex relative items-center hover:cursor-pointer group">
               <p>حساب کاربری</p>
               <span>
                 <svg
@@ -76,7 +76,7 @@ export default function NavBar() {
                 </svg>
               </span>
 
-              <div className=" absolute border top-6 rounded-lg bg-slate-300 invisible group-hover:visible ">
+              <div className="absolute border top-5 rounded-lg bg-slate-300 invisible group-hover:visible ">
                 <ul className="flex flex-col w-32 ">
                   <Link href="/" className="hover:bg-slate-400 py-1">
                     سفارشات
@@ -130,7 +130,7 @@ export default function NavBar() {
         </div>
       </div>
 
-      <div className="flex invisible sm:visible sm:flex-col justify-between p-6 items-center container w-screen border mt-4 fixed inset-0 h-20 bg-stone-50 dark:bg-stone-700 shadow-lg ">
+      <div className="flex invisible sm:visible sm:flex-col justify-between p-6 items-center container w-screen border mt-4 fixed inset-0 h-20 bg-stone-50 dark:bg-stone-700 shadow-lg z-20 ">
         <div className="flex justify-between items-center w-full h-full">
           <div>
             <AiOutlineMenuFold className="w-10 h-10" onClick={()=>{ setShowMenu(!showMenu) }}/>

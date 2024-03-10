@@ -1,10 +1,11 @@
 import NavBar from '@/components/modules/NavBar'
-import Image from 'next/image'
+import Swiper from '@/components/templates/Swiper/Swiper'
 
 export default function Home() {
   return (
     <h1 style={{fontFamily:'BYekan'}}>
-    <NavBar/>
+    <NavBar />
+    <Swiper/>
     </h1>
   )
 }

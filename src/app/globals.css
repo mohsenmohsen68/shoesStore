@@ -13,3 +13,7 @@
       src: url('./../../public/fonts/BYekanBold.ttf');
   } 
 }
+
+body{
+  font-family: BYekan;
+}

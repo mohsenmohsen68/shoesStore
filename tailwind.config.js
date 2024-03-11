@@ -5,24 +5,27 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/*.{js,ts,jsx,tsx,mdx}',
+    'node_modules/flowbite-react/lib/esm/**/*.js',  
   ],
   theme: {
+    fontFamily: {
+      'BYekan': 'Byekan',
+      'BYekanBold': 'BYekanBold' // Ensure fonts with spaces have " " surrounding it.
+    },
     container: {
       center: true,
     },
     screens: {
-			xl: { max: "1279px" },
-			// => @media (max-width: 1279px) { ... }
-			lg: { max: "1023px" },
-			// => @media (max-width: 1023px) { ... }
-			md: { max: "767px" },
-			// => @media (max-width: 767px) { ... }
-			sm: { max: "639px" },
-			// => @media (max-width: 639px) { ... }
+			xl: { max: "1200px" },
+			lg: { max: "992px" },
+			md: { max: "768px" },
+			sm: { max: "576px" },
 		},
     extend: {
       transform: ['group-hover', 'hover'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin'),
+  ],
 }

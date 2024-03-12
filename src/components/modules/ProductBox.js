@@ -12,7 +12,7 @@ export default function ProductBox() {
     console.log(newRating);
   };
   return (
-    <div className="flex flex-col w-56 h-[340px] z-0 justify-center rounded-lg overflow-hidden hover:cursor-pointer border-2 border-gray-200 mb-0">
+    <div data-aos="fade-up" className="flex flex-col w-56 h-[340px] z-0 justify-center rounded-lg overflow-hidden hover:cursor-pointer border-2 border-gray-200 mb-0">
       <div className="w-full h-2/3 overflow-hidden relative group">
         <img
           src="/img/banner4.jpg"

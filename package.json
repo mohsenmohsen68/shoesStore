@@ -30,6 +30,8 @@
     "swiper": "^11.0.7"
   },
   "devDependencies": {
+    "@kamona/tailwindcss-perspective": "^0.1.1",
+    "@xpd/tailwind-3dtransforms": "^1.0.3",
     "autoprefixer": "^10.0.1",
     "postcss": "^8",
     "tailwindcss": "^3.3.0"

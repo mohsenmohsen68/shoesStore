@@ -14,7 +14,7 @@ export default function MySwiper() {
         autoplay={{ delay: 6000 }}
         loop={true}
         modules={[Navigation, Autoplay]}
-        className="w-full h-dvh block"
+        className="w-full h-dvh"
       >
         <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center">
           <img

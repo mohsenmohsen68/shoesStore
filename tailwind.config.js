@@ -27,5 +27,6 @@ module.exports = {
   },
   plugins: [
     require('flowbite/plugin'),
+    require("@xpd/tailwind-3dtransforms"),
   ],
 }

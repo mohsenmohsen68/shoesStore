@@ -4,6 +4,7 @@ import Title from "@/components/modules/Title";
 import LatestProducts from "@/components/modules/LatestProducts";
 import ShopPromote from "@/components/templates/ShopPromote";
 import ArticlesSwiper from "@/components/modules/ArticlesSwiper";
+import Footer from "@/components/modules/Footer";
 
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <ShopPromote/>
       <Title title={'آخرین مقالات'} action={ 'نمایش بیشتر' }/>
       <ArticlesSwiper/>
+      <Footer/>
     </div>
   );
 }

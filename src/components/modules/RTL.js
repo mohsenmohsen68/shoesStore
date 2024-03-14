@@ -1,15 +1,28 @@
-// "use client"
-// import rtlPlugin from 'stylis-plugin-rtl';
-// import { CacheProvider } from '@emotion/react';
-// import createCache from '@emotion/cache';
-// import { prefixer } from 'stylis';
+"use client";
+import React from "react";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { create } from "jss";
+import rtl from "jss-rtl";
+import { StylesProvider, jssPreset } from "@material-ui/core/styles";
 
-// // Create rtl cache
-// const cacheRtl = createCache({
-//   key: 'muirtl',
-//   stylisPlugins: [prefixer, rtlPlugin],
-// });
+// Configure JSS
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
-// export default function RTL(props) {
-//   return <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;
-// }
+const theme = createTheme({
+  direction: "rtl" // Both here and <body dir="rtl">
+});
+
+export default function RTL(props) {
+
+    
+
+  return (
+    <ThemeProvider theme={theme}>
+        <StylesProvider jss={jss}>
+      <div dir="rtl" >
+            {props.children}
+      </div>
+        </StylesProvider>
+    </ThemeProvider>
+  );
+}

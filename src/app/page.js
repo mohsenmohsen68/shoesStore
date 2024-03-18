@@ -5,9 +5,11 @@ import LatestProducts from "@/components/modules/LatestProducts";
 import ShopPromote from "@/components/templates/ShopPromote";
 import ArticlesSwiper from "@/components/modules/ArticlesSwiper";
 import Footer from "@/components/modules/Footer";
+import { connectToDB } from "../../configs/db";
 
 
 export default function Home() {
+  connectToDB()
   return (
     <div className="font-BYekan ">
       <NavBar />

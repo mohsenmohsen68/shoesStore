@@ -8,7 +8,7 @@ import ArticleBox from "./ArticleBox";
 
 export default function ArticlesSwiper() {
   return (
-    <div className="z-0 mt-14">
+    <div className="z-0 mt-14 mb-9">
       <p className="block text-2xl text-center my-4 md:text-xl sm:text-base">
         <span className="text-red-600 text-3xl">❤</span>دانستنی های جذاب در مورد
         کفش<span className="text-red-600 text-3xl">❤</span>

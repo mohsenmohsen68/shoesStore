@@ -6,7 +6,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
 import { AiOutlineMenuFold } from "react-icons/ai";
 
-export default function NavBar() {
+export default function NavBar({ isLogedIn }) {
+  console.log("isloggedin ---->>>>", isLogedIn);
   const [showMenu, setShowMenu] = useState(false);
   const [fixTop, setFixTop] = useState(false);
   useEffect(() => {
@@ -27,7 +28,7 @@ export default function NavBar() {
       <div
         className={`flex items-center justify-between ${
           fixTop ? "sticky top-0" : "absolute top-4"
-        } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg w-full`}
+        } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg font-BYekan w-full`}
       >
         <div className="w-1/10 text-center md:hidden ">
           <img
@@ -75,44 +76,46 @@ export default function NavBar() {
                 />
               </svg>
             </div>
-            {/* <Link href={"/"}>ثبت نام / ورود</Link> */}
-            <div className="flex relative items-center hover:cursor-pointer group">
-              <p>حساب کاربری</p>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-3 h-3 mr-1"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
+            {!isLogedIn && <Link href={"/"}>ثبت نام / ورود</Link>}
+            {isLogedIn && (
+              <div className="flex relative items-center hover:cursor-pointer group">
+                <p>حساب کاربری</p>
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-3 h-3 mr-1"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
 
-              <div className="absolute border top-5 rounded-lg bg-slate-300 invisible group-hover:visible ">
-                <ul className="flex flex-col w-32 ">
-                  <Link href="/" className="hover:bg-slate-400 py-1">
-                    سفارشات
-                  </Link>
-                  <Link href="/" className="hover:bg-slate-400 py-1">
-                    تیکت های پشتیبانی
-                  </Link>
-                  <Link href="/" className="hover:bg-slate-400 py-1">
-                    پیغام ها{" "}
-                  </Link>
-                  <Link href="/" className="hover:bg-slate-400 py-1">
-                    علاقه مندی ها
-                  </Link>
-                  <Link href="/" className="hover:bg-slate-400 py-1">
-                    تنظیمات
-                  </Link>
-                </ul>
+                <div className="absolute border top-5 rounded-lg bg-slate-300 invisible group-hover:visible ">
+                  <ul className="flex flex-col w-32 ">
+                    <Link href="/" className="hover:bg-slate-400 py-1">
+                      سفارشات
+                    </Link>
+                    <Link href="/" className="hover:bg-slate-400 py-1">
+                      تیکت های پشتیبانی
+                    </Link>
+                    <Link href="/" className="hover:bg-slate-400 py-1">
+                      پیغام ها{" "}
+                    </Link>
+                    <Link href="/" className="hover:bg-slate-400 py-1">
+                      علاقه مندی ها
+                    </Link>
+                    <Link href="/" className="hover:bg-slate-400 py-1">
+                      تنظیمات
+                    </Link>
+                  </ul>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className="w-1/10 text-center md:w-1/6 md:px-0  ">
@@ -158,11 +161,11 @@ export default function NavBar() {
               className="w-10 h-10 z-20 mr-4"
               onClick={() => {
                 setShowMenu(!showMenu);
-                console.log(showMenu)
+                console.log(showMenu);
               }}
             />
           </div>
-          <div >
+          <div>
             <img
               src="img/shoeshoplogo.jpg"
               alt="logo"
@@ -200,7 +203,7 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-        
+
         {showMenu && (
           <div className="w-full text-center bg-red-200 mt-0">
             <div className="flex flex-col justify-center ">
@@ -247,44 +250,47 @@ export default function NavBar() {
                   />
                 </svg>
               </div>
-              {/* <Link href={"/"}>ثبت نام / ورود</Link> */}
+              {!isLogedIn && (<Link href={"/"}>ثبت نام / ورود</Link>)}
+              {isLogedIn && (                
               <div className=" flex relative items-center justify-center hover:bg-red-400 py-2 hover: cursor-pointer group ">
-                <p>حساب کاربری</p>
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-3 h-3 mr-1"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+                  <p>حساب کاربری</p>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-3 h-3 mr-1"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
 
-                <div className=" absolute w-full mt-4 h-0 border top-6 bg-red-100 overflow-hidden group-hover:h-40 transition-all duration-2000 ease-in-out  ">
-                  <ul className="flex flex-col w-full justify-center items-center ">
-                    <Link href="/" className="hover:bg-red-200 w-full py-1">
-                      سفارشات
-                    </Link>
-                    <Link href="/" className="hover:bg-red-200 w-full py-1">
-                      تیکت های پشتیبانی
-                    </Link>
-                    <Link href="/" className="hover:bg-red-200 w-full py-1">
-                      پیغام ها{" "}
-                    </Link>
-                    <Link href="/" className="hover:bg-red-200 w-full py-1">
-                      علاقه مندی ها
-                    </Link>
-                    <Link href="/" className="hover:bg-red-200 w-full py-1">
-                      تنظیمات
-                    </Link>
-                  </ul>
-                </div>
-              </div>
+                  <div className=" absolute w-full mt-4 h-0 border top-6 bg-red-100 overflow-hidden group-hover:h-40 transition-all duration-2000 ease-in-out  ">
+                    <ul className="flex flex-col w-full justify-center items-center ">
+                      <Link href="/" className="hover:bg-red-200 w-full py-1">
+                        سفارشات
+                      </Link>
+                      <Link href="/" className="hover:bg-red-200 w-full py-1">
+                        تیکت های پشتیبانی
+                      </Link>
+                      <Link href="/" className="hover:bg-red-200 w-full py-1">
+                        پیغام ها{" "}
+                      </Link>
+                      <Link href="/" className="hover:bg-red-200 w-full py-1">
+                        علاقه مندی ها
+                      </Link>
+                      <Link href="/" className="hover:bg-red-200 w-full py-1">
+                        تنظیمات
+                      </Link>
+                    </ul>
+                  </div>
+                </div>)
+
+              }
             </div>
           </div>
         )}

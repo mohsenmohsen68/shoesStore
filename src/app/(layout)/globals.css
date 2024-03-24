@@ -6,11 +6,11 @@
 @layer base{
   @font-face {
       font-family:BYekan ;
-      src: url('./../../public/fonts/BYekan.ttf');
+      src: url('./../../../public/fonts/BYekan.ttf');
   }
   @font-face {
       font-family:BYekanBold ;
-      src: url('./../../public/fonts/BYekanBold.ttf');
+      src: url('./../../../public/fonts/BYekanBold.ttf');
   } 
 }
 

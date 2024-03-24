@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base{
+  @font-face {
+      font-family:BYekan ;
+      src: url('./../../../public/fonts/BYekan.ttf');
+  }
+  @font-face {
+      font-family:BYekanBold ;
+      src: url('./../../../public/fonts/BYekanBold.ttf');
+  } 
+}
+
+body{
+  font-family: BYekan;
+}

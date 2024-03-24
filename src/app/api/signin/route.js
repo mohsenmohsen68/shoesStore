@@ -1,22 +1,22 @@
-import { connectToDB } from "@/root/configs/db";
-import userModel from "@/root/models/users";
+import connectToDB from "../../../../configs/db";
+import userModel from "../../../../models/users";
 import {
   generateAccessToken,
   generateRefreshToken,
   validateEmail,
   validatePassword,
   verifyPassword
-} from "@/root/public/util/auth/auth";
+} from "../../../../public/util/auth/auth.js";
 
-export async function POST(req) {
+async function POST(req) {
   connectToDB();
   const body = await req.json();
+  console.log(body)
   const { email, password } = body;
-
   const isValidPassword = validatePassword(password);
   const isValidEmail = validateEmail(email);
 
-  if (!isValidEmail || !isValidEmail) {
+  if (!isValidEmail || !isValidPassword) {
     return Response.json(
       { message: "email or password is invalid" },
       { status: 422 }
@@ -28,12 +28,12 @@ export async function POST(req) {
   if (!user) {
     return Response.json(
       { message: "email or password is incorrect" },
-      { status: 422 }
+      { status: 419 }
     );
   }
 
-  const isPasswordValid =await verifyPassword(password, user.password);
-  console.log(password, user.password , isPasswordValid)
+  console.log(password, user.password);
+  const isPasswordValid = await verifyPassword(password, user.password);
 
   if (!isPasswordValid) {
     return Response.json(
@@ -53,3 +53,5 @@ export async function POST(req) {
     }
   );
 }
+
+export {POST}

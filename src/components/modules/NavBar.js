@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { SlBasket } from "react-icons/sl";
 import { FaRegHeart } from "react-icons/fa";
 import { FaShuffle } from "react-icons/fa6";
@@ -31,8 +32,10 @@ export default function NavBar({ isLogedIn }) {
         } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg font-BYekan w-full`}
       >
         <div className="w-1/10 text-center md:hidden ">
-          <img
-            src="img/shoeshoplogo.jpg"
+          <Image
+            src={"/img/shoeshoplogo.jpg"}
+            width={72}
+            height={72}
             alt="logo"
             className="w-[72px] h-[72px] rounded-2xl"
           />

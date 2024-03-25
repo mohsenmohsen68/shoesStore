@@ -1,6 +1,7 @@
 import React from "react";
 import NumberToPersianWord from "number_to_persian_word";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,11 +10,13 @@ export default function Footer() {
         <div className="w-2/3 flex gap-2 md:w-full sm:flex-col ">
         <div id="shopInfo" className="flex flex-col w-1/2 p-1 space-y-1 shadow-md sm:w-full">
         <div className="flex gap-2 items-center ">
-        <img
-          src="img/shoeshoplogo.jpg"
-          alt="logo"
-          className="w-[47px] h-[47px] rounded-2xl"
-        />
+        <Image
+            src={"/img/shoeshoplogo.jpg"}
+            width={55}
+            height={55}
+            alt="logo"
+            className=" rounded-2xl"
+          />
         <h1 className="text-xl lg:text-lg md:text-base sm:text-sm"> فروشگاه کفش جلوه </h1>
         </div>
         <p className="text-base lg:text-sm ">

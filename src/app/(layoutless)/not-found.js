@@ -6,7 +6,7 @@ function Notfound() {
   return (
 <div className='flex flex-col items-center justify-center bg-slate-300 h-dvh w-full'>
     <div>
-       <p className='font-BYekan text-2xl mt-28 ' >صفحه ای که دنبالشی وجود نداره ...</p>
+       <p className='font-BYekan text-2xl mt-28' >صفحه ای که دنبالشی وجود نداره ...</p>
     </div>
     <div className='flex justify-center items-center h-72  my-10 '>
        <Image src='/img/four.jpg' width={300} height={300} alt='404 image' className='rounded-r-full ml-1'/>

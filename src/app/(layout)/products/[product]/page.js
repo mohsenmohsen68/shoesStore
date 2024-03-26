@@ -7,15 +7,17 @@ import AddToFavorites from "@/components/modules/AddToFavorites";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { LiaCertificateSolid } from "react-icons/lia";
 import { MdHighQuality } from "react-icons/md";
+import Explanation from "@/components/modules/Explanation";
+import SimillarProducts from "@/components/modules/SimillarProducts";
 
 function page({ params }) {
   return (
     <div className="w-full flex flex-col gap-4 my-9">
       <div className="w-11/12 flex mt-24 gap-4 mx-auto ">
-        <div className="w-1/3">
+        <div className="w-2/5 h-[500px] ">
           <ProductSwiper />
         </div>
-        <div className="w-2/3 flex flex-col">
+        <div className="w-3/5 flex flex-col">
           <div className="flex w-full">
             <div className="w-11/12 m-0">
               <BreadCrumb titles={params.product} />
@@ -95,14 +97,21 @@ function page({ params }) {
           </div>
           <hr className=" border-slate-400" />
           <div className="mr-4 mt-4">
-                <div className="font-BYekan"> <span className="font-BYekanBold">شناسه محصول :</span> ۹۷۲۴۴۰۹۹۴</div>
-                <div className="font-BYekan"><span className="font-BYekanBold">دسته :</span> اسپرت، مردانه</div>
-                <div className="font-BYekan"><span className="font-BYekanBold">برچسب :</span> </div>
-                <div className="font-BYekan"><span className="font-BYekanBold">اشتراک گذاری : </span></div>
+            <div className="font-BYekan">
+              {" "}
+              <span className="font-BYekanBold">شناسه محصول :</span> ۹۷۲۴۴۰۹۹۴
+            </div>
+            <div className="font-BYekan">
+              <span className="font-BYekanBold">دسته :</span> اسپرت، مردانه
+            </div>
+            <div className="font-BYekan">
+              <span className="font-BYekanBold">برچسب :</span>{" "}
+            </div>
+            <div className="font-BYekan">
+              <span className="font-BYekanBold">اشتراک گذاری : </span>
+            </div>
 
-                <div>
-
-                </div>
+            <div></div>
           </div>
           <hr className=" border-slate-400" />
           <div className="flex flex-col gap-4 mt-4 pr-4">
@@ -133,14 +142,39 @@ function page({ params }) {
               <p className="w-5 h-5 hover:scale-125 transition-all mr-4 bg-black rounded-full border-black border-[1px] "></p>
               <p className="w-5 h-5 hover:scale-125 transition-all mr-4 bg-gray-400 rounded-full border-black border-[1px]"></p>
             </div>
-            <AddToFavorites/>
-            <AddToShoppingCart/>
+            <div className="flex items-center">
+              <AddToFavorites />
+              <div className="mr-4">افزودن به علاقه مندی ها</div>
+            </div>
+            <AddToShoppingCart />
+            <hr className="border-slate-400" />
+            <div className="flex justify-evenly">
+              <div className="flex flex-col justify-center items-center">
+                <CiDeliveryTruck className="w-20 h-20 text-orange-500" />
+                <p>تحویل سریع و آسان</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <LiaCertificateSolid className="w-20 h-20 text-green-500"/>
+                <p>ضمانت اصل بودن کالا</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <MdHighQuality className="w-20 h-20 text-yellow-200" />
+                <p>تضمین کیفیت</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="w-11/12 bg-red-950 mx-auto">lk</div>
-      <div className="w-11/12 bg-red-200 mx-auto">lk</div>
+      <div className="w-11/12 mx-auto">
+        <Explanation/>
+      </div>
+      <div className="w-11/12 mx-auto">
+        <div className="font-BYekanBold text-xl my-7">محصولات مشابه</div>
+        <div className="w-full h-96">
+                <SimillarProducts/>
+        </div>
+      </div>
     </div>
   );
 }

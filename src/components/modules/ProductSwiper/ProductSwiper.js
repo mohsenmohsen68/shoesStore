@@ -21,7 +21,7 @@ function ProductSwiper() {
       <Swiper
         style={{
           "--swiper-navigation-color": "#fff",
-          "--swiper-pagination-color": "#fff"
+          "--swiper-pagination-color": "#fff",
         }}
         loop={true}
         spaceBetween={10}

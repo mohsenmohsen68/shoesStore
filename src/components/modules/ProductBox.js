@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Rating from "@mui/material/Rating";
+// import Rating from "@mui/material/Rating";
 import NumberToPersianWord from "number_to_persian_word";
 import { Button } from "flowbite-react";
 import { GoHeart } from "react-icons/go";
@@ -36,7 +36,7 @@ export default function ProductBox() {
       <div className="px-3 my-0 pb-3">
         <h1 className="text-xl"> کفش اسپرت مردانه </h1>
         <h1 className="text-base"> مدل نایکی SB dunk </h1>
-        <Rating value={2} readOnly />
+        {/* <Rating value={2} readOnly /> */}
         <p className="font-BYekan">
           {NumberToPersianWord.convertEnToPe(420000)} تومان
         </p>

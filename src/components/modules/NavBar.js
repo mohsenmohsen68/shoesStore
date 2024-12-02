@@ -9,6 +9,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 
 export default function NavBar({ isLogedIn }) {
   console.log("isloggedin ---->>>>", isLogedIn);
+  // show menu is menu for mobile displays
   const [showMenu, setShowMenu] = useState(false);
   const [fixTop, setFixTop] = useState(false);
   useEffect(() => {
@@ -27,9 +28,8 @@ export default function NavBar({ isLogedIn }) {
   return (
     <>
       <div
-        className={`flex items-center justify-between ${
-          fixTop ? "sticky top-0" : "absolute top-4"
-        } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg font-BYekan w-full`}
+        className={`flex items-center justify-between ${fixTop ? "sticky top-0" : "absolute top-4"
+          } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg font-BYekan w-full transition-all`}
       >
         <div className="w-1/10 text-center md:hidden ">
           <Image
@@ -79,7 +79,7 @@ export default function NavBar({ isLogedIn }) {
                 />
               </svg>
             </div>
-            {!isLogedIn && <Link href={"/"}>ثبت نام / ورود</Link>}
+            {!isLogedIn && <Link href={"/login"}>ثبت نام/ورود</Link>}
             {isLogedIn && (
               <div className="flex relative items-center hover:cursor-pointer group">
                 <p>حساب کاربری</p>
@@ -154,9 +154,8 @@ export default function NavBar({ isLogedIn }) {
       </div>
 
       <div
-        className={`flex justify-between items-center ${
-          fixTop ? "sticky top-0 " : "absolute top-4 "
-        } py-[2px] hidden sm:visible sm:block h-20 bg-slate-200 z-40 m-0 w-full`}
+        className={`flex justify-between items-center ${fixTop ? "sticky top-0 " : "absolute top-4 "
+          } py-[2px] hidden sm:visible sm:block h-20 bg-slate-200 z-40 m-0 w-full`}
       >
         <div className="flex justify-between items-center w-full h-full">
           <div>
@@ -164,7 +163,6 @@ export default function NavBar({ isLogedIn }) {
               className="w-10 h-10 z-20 mr-4"
               onClick={() => {
                 setShowMenu(!showMenu);
-                console.log(showMenu);
               }}
             />
           </div>
@@ -208,7 +206,7 @@ export default function NavBar({ isLogedIn }) {
         </div>
 
         {showMenu && (
-          <div className="w-full text-center bg-red-200 mt-0">
+          <div className="w-full text-center bg-red-200 mt-0 font-BYekan">
             <div className="flex flex-col justify-center ">
               <Link href={"/"} className="hover:bg-red-400 py-2">
                 صفحه اصلی
@@ -253,9 +251,9 @@ export default function NavBar({ isLogedIn }) {
                   />
                 </svg>
               </div>
-              {!isLogedIn && (<Link href={"/"}>ثبت نام / ورود</Link>)}
-              {isLogedIn && (                
-              <div className=" flex relative items-center justify-center hover:bg-red-400 py-2 hover: cursor-pointer group ">
+              {!isLogedIn && (<Link href={"/login-register"}>ثبت نام / ورود</Link>)}
+              {isLogedIn && (
+                <div className=" flex relative items-center justify-center hover:bg-red-400 py-2 hover: cursor-pointer group ">
                   <p>حساب کاربری</p>
                   <span>
                     <svg

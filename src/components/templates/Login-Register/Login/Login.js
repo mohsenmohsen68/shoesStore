@@ -9,7 +9,7 @@ import {
   validatePhoneNumber,
   validatePassword,
   verifyPassword
-} from "@/root/public/util/auth/auth";
+} from "@/root/util/auth/auth";
 import Register from "../Register/Register";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
@@ -19,6 +19,9 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { loginUser } from "@/redux/users/Users";
+import toast, { Toaster } from "react-hot-toast";
 
 const cacheRtl = createCache({
   key: "muirtl",
@@ -40,205 +43,182 @@ theme = createTheme(theme, {
 });
 
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
-  const [phoneOrEmail, setPhoneOrEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-  const signupWithPassword = async () => {
-    // input validations
-    if (userName.length <= 2) {
-      return swal({
-        title: "نام کاربری باید حداقل سه کاراکتر داشته باشد ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
-    }
-
-    const IsPhoneValid = validatePhoneNumber(phoneNumber);
-    if (!IsPhoneValid) {
-      return swal({
-        title: "شماره همراه نامعتبر است ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
-    }
-
-    const IsEmailValid = validateEmail(email);
-    if (!IsEmailValid) {
-      return swal({
-        title: "ایمیل نامعتبر است ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
-    }
-
-    const IsPasswordValid = validatePassword(password);
-    if (!IsPasswordValid) {
-      return swal({
-        title: "رمز عبور قابل حدس است ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
-    }
-    const userData = { userName, phoneNumber, email, password };
-    const res = await fetch("/api/signup", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    if (res.status === 201) {
-      swal({
-        title: "کاربر با موفقیت ثبت شد ...",
-        icon: "success",
-        buttons: "ورود به پنل کاربری"
-      });
-    } else if (res.status === 422) {
-      swal({
-        title: "کاربر قبلا ثبت نام کرده است ...",
-        icon: "error",
-        buttons: "خروج"
-      });
-    }
-  };
-
   const loginWithPassword = async () => {
-    if (!phoneOrEmail) {
-      return swal({
-        title: "ایمیل یا شماره تلفن را وارد کنید ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
+    if (!phone) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>
+          ایمیل یا شماره تلفن را وارد کنید ...
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
     }
     if (!loginPassword) {
-      return swal({
-        title: "رمز عبور را وارد کنید ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
+      return toast.error(
+        <div className='font-BYekan text-sm'>رمز عبور را وارد کنید ...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
     }
 
-    const isPhoneOrEmailValid = validateEmail(phoneOrEmail);
+    const isPhoneValid = validatePhoneNumber(phone);
     const isLoginPassword = validatePassword(loginPassword);
 
-    if (!isPhoneOrEmailValid) {
-      return swal({
-        title: "ایمیل نامعتبر است...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
+    if (!isPhoneValid) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>شماره تلفن نامعتبر است...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
     }
 
-    if (!isLoginPassword) {
-      return swal({
-        title: "رمز عبور اشتباه است ...",
-        icon: "error",
-        buttons: "تلاش مجدد"
-      });
-    }
+    const userBody = { phoneNumber: phone, password: loginPassword };
+    const response = await dispatch(loginUser(userBody));
+    console.log("response : ", response);
 
-    const res = await fetch("/api/signin", {
-      method: "POST",
-      body: JSON.stringify({ password: loginPassword, email: phoneOrEmail }),
-      headers: {
-        "Content-Type": "aplication/json"
-      }
-    });
-    console.log(res);
-    if (res.status === 200) {
-      return swal({
-        title: "با موفقیت وارد شدید ...",
-        icon: "success"
-      });
-    } else if (res.status === 422 || res.status === 419) {
-      return swal({
-        title: "نام کاربری یا رمز عبور اشتباه است ...",
-        icon: "error"
-      });
+    if (response.payload.status === 200) {
+      return toast.success(
+        <div className='font-BYekan text-sm'>با موفقیت وارد شدید ...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    } else if (response.payload.status === 422) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>
+          شماره تلفن یا رمز عبور اشتباه است ...
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
+    if (response.payload.status === 409) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>
+          رمز عبور یا شماره تماس نامعتبر است ...
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
     }
   };
 
   return (
     <div className='absolute flex flex-col px-2 py-4 space-y-3  w-80 h-[420px] bg-white shadow-xl shadow-black top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2'>
-      <div className="flex flex-col gap-2">
-      <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
-          <div dir='rtl' className=' flex justify-center items-center '>
-            <TextField
-              label='شماره همراه/پست الکترونیکی'
-              variant='filled'
-              inputProps={{
-                style: {
-                  fontFamily: "BYekan"
-                }
-              }}
-              size='small'
-              color='warning'
-              value={phoneOrEmail}
-              onChange={(event) => setPhoneOrEmail(event.target.value)}
-            />
-          </div>
-          <div dir='rtl' className=' flex justify-center items-center'>
-            <TextField
-              label='رمز عبور'
-              variant='filled'
-              inputProps={{
-                style: {
-                  fontFamily: "BYekan"
-                }
-              }}
-              size='small'
-              color='warning'
-              value={loginPassword}
-              onChange={(event) => setLoginPassword(event.target.value)}
-            />
-          </div>
-        </ThemeProvider>
-      </CacheProvider>
-      <div className='flex justify-start ms-4'>
-        <FormControlLabel
-          sx={{
-            fontFamily: "BYekan",
-            fontSize: "16px"
-          }}
-          control={
-            <Checkbox
-              {...label}
-              defaultChecked
-              sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }}
-            />
-          }
-          label={
-            <span style={{ fontSize: "12px", fontFamily: "BYekan" }}>
-              {"مرا به یاد داشته باش"}
-            </span>
-          }
-        />
-      </div>
+      <div className='flex flex-col gap-2'>
+        <CacheProvider value={cacheRtl}>
+          <ThemeProvider theme={theme}>
+            <div dir='rtl' className=' flex justify-center items-center '>
+              <TextField
+                label='شماره همراه'
+                variant='filled'
+                inputProps={{
+                  style: {
+                    fontFamily: "BYekan"
+                  }
+                }}
+                size='small'
+                color='warning'
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+              />
+            </div>
+            {isPasswordShown && (
+              <div dir='rtl' className=' flex justify-center items-center'>
+                <TextField
+                type="password"
+                  label='رمز عبور'
+                  variant='filled'
+                  inputProps={{
+                    style: {
+                      fontFamily: "BYekan"
+                    }
+                  }}
+                  size='small'
+                  color='warning'
+                  value={loginPassword}
+                  onChange={(event) => setLoginPassword(event.target.value)}
+                />
+              </div>
+            )}
+          </ThemeProvider>
+        </CacheProvider>
+        <div className='flex justify-start ms-4'>
+          <FormControlLabel
+            sx={{
+              fontFamily: "BYekan",
+              fontSize: "16px"
+            }}
+            control={
+              <Checkbox
+                {...label}
+                defaultChecked
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }}
+              />
+            }
+            label={
+              <span style={{ fontSize: "12px", fontFamily: "BYekan" }}>
+                {"مرا به یاد داشته باش"}
+              </span>
+            }
+          />
+        </div>
       </div>
       <div className='flex flex-col w-full justify-center items-center gap-3'>
-        <Button
-          className='p-0 w-1/2'
-          color='secondary'
-          onClick={() => {}}
-          variant='contained'
-          sx={{
-            fontFamily: "BYekan",
-            fontSize: "16px"
-          }}
-        >
-          ورود با رمز عبور
-        </Button>
+        {!isPasswordShown && (
+          <Button
+            className='p-0 w-1/2'
+            color='secondary'
+            onClick={() => {
+              setIsPasswordShown(true);
+            }}
+            variant='contained'
+            sx={{
+              fontFamily: "BYekan",
+              fontSize: "16px"
+            }}
+          >
+            ورود با رمز عبور
+          </Button>
+        )}
+        {isPasswordShown && (
+          <Button
+            className='p-0 w-1/2'
+            color='secondary'
+            onClick={() => {
+              loginWithPassword();
+            }}
+            variant='contained'
+            sx={{
+              fontFamily: "BYekan",
+              fontSize: "16px"
+            }}
+          >
+            ورود{" "}
+          </Button>
+        )}
         <Button
           className='p-0 w-1/2'
           color='warning'
-          onClick={() => {
-            setIsPassShown(true);
-            setIsCodeBtnShown(false);
-            setIsPassBtnShown(true);
-          }}
+          onClick={() => {}}
           variant='contained'
           sx={{
             fontFamily: "BYekan",
@@ -284,6 +264,22 @@ export default function Login() {
           بازگشت
         </Button>
       </div>
+      <Toaster
+        toastOptions={{
+          success: {
+            style: {
+              background: "green",
+              color: "white"
+            }
+          },
+          error: {
+            style: {
+              background: "red",
+              color: "white"
+            }
+          }
+        }}
+      />
     </div>
   );
 }

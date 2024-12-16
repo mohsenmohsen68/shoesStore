@@ -63,7 +63,7 @@ export default function NavBar({ isLogedIn }) {
               </span>
             </div>
             <Link href={"/"}>فروش سازمانی</Link>
-            <Link href={"/"}>تماس با ما</Link>
+            <Link href={"/aboutus"}>درباره ما</Link>
             <div className="flex items-center">
               <Link href={"/"}>وبلاگ</Link>
               <svg

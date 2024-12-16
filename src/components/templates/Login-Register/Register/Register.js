@@ -9,6 +9,9 @@ import createCache from "@emotion/cache";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { createANewUser } from "@/redux/users/Users";
+import toast, { Toaster } from "react-hot-toast";
 
 const cacheRtl = createCache({
   key: "muirtl",
@@ -38,9 +41,84 @@ export default function Register() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  const signupWithPassword = () => {
-    console.log("hi there .., this is pass");
+  const signupWithPassword = async () => {
+    const body = { userName, email, password, phoneNumber };
+
+    //front end validation
+    if (!userName.trim()) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>نام کاربری را وارد کنید ...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
+    if (!phoneNumber.trim()) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>شماره تلفن را وارد کنید...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
+    if (!password.trim()) {
+      return toast.error(
+        <div className='font-BYekan text-sm'>رمز عبور را وارد کنید...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
+
+    const userCreationResponse = await dispatch(createANewUser(body));
+    if (userCreationResponse.payload.status === 201) {
+      toast.success(
+        <div className='font-BYekan text-sm'>کاربر جدید اضافه شد ...</div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+      setEmail("");
+      setUserName("");
+      setPassword("");
+      setPhoneNumber("");
+    } else if (userCreationResponse.payload.status === 422) {
+      toast.error(
+        <div className='  font-BYekan text-sm flex justify-center'>
+          کاربری با این مشخصات قبلا ثبت نام کرده است...{" "}
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    } else if (userCreationResponse.payload.status === 400) {
+      toast.error(
+        <div className='  font-BYekan text-sm flex justify-center'>
+          پست الکترونیک یا شماره تلفن نامعتبر است...{" "}
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    } else {
+      toast.error(
+        <div className='  font-BYekan text-sm flex justify-center'>
+          مشکلی در سمت سرور به وجود آمده است...{" "}
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
   };
 
   return (
@@ -117,7 +195,7 @@ export default function Register() {
 
       {isCodeBtnShown && (
         <Button
-        className='p-0 w-1/2 font-BYekan text-sm hover:cursor-pointer self-center'
+          className='p-0 w-1/2 font-BYekan text-sm hover:cursor-pointer self-center'
           variant='contained'
           color='warning'
           sx={{
@@ -131,7 +209,7 @@ export default function Register() {
 
       {isCodeBtnShown && (
         <Button
-        className='p-0 w-1/2 font-BYekan text-sm hover:cursor-pointer self-center'
+          className='p-0 w-1/2 font-BYekan text-sm hover:cursor-pointer self-center'
           color='secondary'
           onClick={() => {
             setIsPassShown(true);
@@ -149,7 +227,7 @@ export default function Register() {
       )}
       {isPassBtnShown && (
         <Button
-        className='p-0 w-1/2 font-BYekan text-sm hover:cursor-pointer self-center'
+          className='p-0 w-1/2 font-BYekan text-sm hover:cursor-pointer self-center'
           color='success'
           onClick={signupWithPassword}
           variant='contained'
@@ -161,17 +239,16 @@ export default function Register() {
           ثبت نام
         </Button>
       )}
-      <div className="flex w-full justify-center">
-      <p className='font-BYekan text-xs'>
-        {" "}
-        آیا ثبت نام کرده اید؟{" "}
-        {
-          <Link href='/login' className='text-green-500'>
-            (ورود)
-          </Link>
-        }
-      </p>
-
+      <div className='flex w-full justify-center'>
+        <p className='font-BYekan text-xs'>
+          {" "}
+          آیا ثبت نام کرده اید؟{" "}
+          {
+            <Link href='/login' className='text-green-500'>
+              (ورود)
+            </Link>
+          }
+        </p>
       </div>
 
       <Button
@@ -188,6 +265,22 @@ export default function Register() {
       >
         بازگشت
       </Button>
+      <Toaster
+        toastOptions={{
+          success: {
+            style: {
+              background: "green",
+              color: "white"
+            }
+          },
+          error: {
+            style: {
+              background: "red",
+              color: "white"
+            }
+          }
+        }}
+      />
     </div>
   );
 }

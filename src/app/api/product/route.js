@@ -1,34 +1,27 @@
 import connectToDB from "@/root/configs/db";
-import productModel from "@/root/models/products";
+import productModel from "@/root/models/Product";
 
 async function POST(req) {
-    try{
+    try {
         connectToDB();
         const body = await req.json();
-        const { name, price, shortDesc, longDesc, weight, suitableFor, score, tags } =
-          body;
-      
+        console.log(body)
+        const { name, price, shortDesc, longDesc, size, color, model, suitableFor, score, count, tags } = body;
+        console.log(name, price, shortDesc, longDesc, size, color, model, suitableFor, score, count, tags)
         const product = await productModel.create({
-          name,
-          price,
-          shortDesc,
-          longDesc,
-          weight,
-          suitableFor,
-          score,
-          tags
+            name, price, shortDesc, longDesc, size, color, model, suitableFor, score, count, tags
         });
 
-        return Response.json({message:'product added successfully',product},{status:201})
-    }catch(err){
-        return Response.json({message:'error 500 ...'},{status:500})
+        return Response.json({ message: 'product added successfully', product }, { status: 201 })
+    } catch (err) {
+        return Response.json({ message: err }, { status: 500 })
     }
 }
 
-async function GET(){
+async function GET() {
     connectToDB();
-    const product = await productModel.find({}).populate('comments')
-    return Response.json({message:'data accessed successfully',data:product}) 
+    const product = await productModel.find({}, '-__v').populate('comments')
+    return Response.json({ message: 'data accessed successfully', data: product })
 }
 
-export { POST,GET };
+export { POST, GET };

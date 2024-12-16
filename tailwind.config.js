@@ -4,7 +4,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/*.{js,ts,jsx,tsx,mdx}',
-    'node_modules/flowbite-react/lib/esm/**/*.js',  
+    'node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   theme: {
     fontFamily: {
@@ -15,18 +15,21 @@ module.exports = {
       center: true,
     },
     screens: {
-			xl: { max: "1200px" },
-			lg: { max: "992px" },
-			md: { max: "768px" },
-			sm: { max: "576px" },
-		},
+      xl: { max: "1200px" },
+      lg: { max: "992px" },
+      md: { max: "768px" },
+      sm: { max: "576px" },
+    },
     extend: {
       transform: ['group-hover', 'hover'],
     },
-   
+
   },
   plugins: [
     require('flowbite/plugin'),
     require("@xpd/tailwind-3dtransforms"),
-  ],
+    require('tailwind-scrollbar'),
+
+  ]
+
 }

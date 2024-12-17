@@ -109,7 +109,7 @@ export default function NavBar({ isLogedIn }) {
                     <Link href="/" className="hover:bg-slate-400 py-1">
                       پیغام ها{" "}
                     </Link>
-                    <Link href="/" className="hover:bg-slate-400 py-1">
+                    <Link href="/favorites" className="hover:bg-slate-400 py-1">
                       علاقه مندی ها
                     </Link>
                     <Link href="/" className="hover:bg-slate-400 py-1">

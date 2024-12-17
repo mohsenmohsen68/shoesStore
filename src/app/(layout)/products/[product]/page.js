@@ -18,26 +18,26 @@ import { userLogesIn } from "@/redux/users/Users";
 import { cookies } from "next/headers";
 import { verifyAccessToken } from "@/root/util/auth/auth";
 import userModel from "@/root/models/User";
-import CommentsWrapper from "@/components/modules/CommentsWrapper"
+import CommentsWrapper from "@/components/modules/CommentsWrapper";
+import SimillarProducts from "@/components/modules/SimillarProducts";
 
 // import { Rating } from "react-simple-star-rating";
 
 export default async function page({ params }) {
-
-
   let user = null;
-  const token = cookies().get("token")
+  const token = cookies().get("token");
   if (token) {
-    const tokenPayLoad = verifyAccessToken(token.value)
+    const tokenPayLoad = verifyAccessToken(token.value);
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
-      console.log("ussser : ", user)
+      console.log("ussser : ", user);
     }
   }
   const id = params.product;
-  console.log(user)
+  console.log("uuussseeerrr",user);
   connectToDB();
   const response = await productModel.findOne({ _id: id });
+  const allProducts = await productModel.find({})
   console.log("resss : ", response);
   return (
     <div className='w-full flex flex-col gap-4 my-9'>
@@ -124,14 +124,16 @@ export default async function page({ params }) {
               <span className='font-BYekanBold'>شناسه محصول :</span> {id}{" "}
             </div>
             <div className='font-BYekan'>
-              <span className='font-BYekanBold'>دسته :</span>{response.category?.map((item) => `${item}, `)}
+              <span className='font-BYekanBold'>دسته :</span>
+              {response.category?.map((item) => `${item}, `)}
             </div>
             <div className='font-BYekan'>
-              <span className='font-BYekanBold'>برچسب :</span>{response.tags?.map((item) => `${item}, `)}
+              <span className='font-BYekanBold'>برچسب :</span>
+              {response.tags?.map((item) => `${item}, `)}
             </div>
             <div className='font-BYekan'>
-              <span className='font-BYekanBold'>اشتراک گذاری : </span><IoLogoInstagram className="text-red-600 text-xl inline" />
-
+              <span className='font-BYekanBold'>اشتراک گذاری : </span>
+              <IoLogoInstagram className='text-red-600 text-xl inline' />
             </div>
 
             <div></div>
@@ -140,22 +142,29 @@ export default async function page({ params }) {
           <div className='flex flex-col gap-4 mt-4 pr-4'>
             <p className='text-green-800-800 font-BYekanBold '>
               تعداد کالای موجود :
-              {response.count > 0 ? (response.count).toLocaleString("fa-ir") : "موجودی این محصول به اتمام رسیده است ..."}
+              {response.count > 0
+                ? response.count.toLocaleString("fa-ir")
+                : "موجودی این محصول به اتمام رسیده است ..."}
             </p>
             <div className='flex items-center'>
               <p className=' font-BYekanBold '>سایز های موجود :</p>
-              {response.size.map(item => (<p className='px-2 py-1 mr-4 hover:bg-purple-700 hover:text-white text-purple-700 rounded-full border-2'>
-                {item}
-              </p>))
-              }
+              {response.size.map((item) => (
+                <p className='px-2 py-1 mr-4 hover:bg-purple-700 hover:text-white text-purple-700 rounded-full border-2'>
+                  {item}
+                </p>
+              ))}
             </div>
             <div className='flex items-center'>
               <p className=' font-BYekanBold '>رنگ های موجود :</p>
-              {response.color.map(item => <p className={`w-5 h-5 hover:scale-125 transition-all mr-4 ${item} rounded-full border-[1px] border-black`}></p>)}
+              {response.color.map((item) => (
+                <p
+                  className={`w-5 h-5 hover:scale-125 transition-all mr-4 ${item} rounded-full border-[1px] border-black`}
+                ></p>
+              ))}
             </div>
             <div className='flex items-center'>
-              <AddToFavorites />
-              <div className='mr-4'>افزودن به علاقه مندی ها</div>
+               <AddToFavorites userID={user._id} productID={response._id}/>
+              <div className='mr-4 font-BYekan'>افزودن به علاقه مندی ها</div>
             </div>
             <AddToShoppingCart />
             <hr className='border-slate-400' />
@@ -178,14 +187,18 @@ export default async function page({ params }) {
       </div>
 
       <div className='w-11/12 mx-auto'>
-        <Explanation product={JSON.parse(JSON.stringify(response))} >
+        <Explanation product={JSON.parse(JSON.stringify(response))}>
           {/* server component passed into client component */}
-        <CommentsWrapper productComments={JSON.parse(JSON.stringify(response.comments)) }/>
-          </Explanation>
+          <CommentsWrapper
+            productComments={JSON.parse(JSON.stringify(response.comments))}
+          />
+        </Explanation>
       </div>
       <div className='w-11/12 mx-auto'>
         <div className='font-BYekanBold text-xl my-7'>محصولات مشابه</div>
-        <div className='w-full h-96'>{/* <SimillarProducts /> */}</div>
+        <div className='w-full h-96'>
+          <SimillarProducts products={JSON.parse(JSON.stringify(allProducts))} filter={response.suitableFor} />
+        </div>
       </div>
     </div>
   );

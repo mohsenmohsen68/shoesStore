@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
     const tokenPayLoad = verifyAccessToken(token.value)
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
-      console.log("ussser : ", user)
+      // console.log("ussser : ", user)
     }
   }
 

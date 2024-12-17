@@ -28,7 +28,7 @@ export default function page() {
     <div className='mt-28'>
       <BreadCrumb titles={"محصولات"} />
       <div className="my-4 p-4 place-items-center grid gap-x-4 gap-y-8 grid-cols-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products.map((item) => <ProductBox {...item} />)}
+        {products.map((item) => <ProductBox key={item._id} {...item} />)}
 
       </div>
     </div>

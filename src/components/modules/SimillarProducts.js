@@ -13,7 +13,8 @@ import Styles from './SimilarProducts.module.css';
 import { Pagination } from 'swiper/modules';
 import ProductBox from './ProductBox';
 
-function SimillarProducts() {
+function SimillarProducts({products,filter}) {
+  const filteredProducts = products.filter(item => item.suitableFor === filter )
   return (
     <>
     <Swiper
@@ -25,15 +26,9 @@ function SimillarProducts() {
       modules={[Pagination]}
       className={Styles.mySwiper}
     >
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
-      <SwiperSlide><ProductBox/></SwiperSlide>
+{filteredProducts.map(item => <SwiperSlide><ProductBox {...item}/></SwiperSlide>)}
+      
+     
     </Swiper>
   </>
   )

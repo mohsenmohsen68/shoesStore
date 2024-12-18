@@ -1,7 +1,5 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Shoes Store || فروشگاه کفش جلوه",
@@ -15,7 +13,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
 
-      <body className={inter.className}>
+      <body >
      
         {children}
       

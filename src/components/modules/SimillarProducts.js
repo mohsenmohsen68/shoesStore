@@ -14,6 +14,7 @@ import { Pagination } from 'swiper/modules';
 import ProductBox from './ProductBox';
 
 function SimillarProducts({products,filter}) {
+  console.log('vv', products, filter)
   const filteredProducts = products.filter(item => item.suitableFor === filter )
   return (
     <>
@@ -26,7 +27,7 @@ function SimillarProducts({products,filter}) {
       modules={[Pagination]}
       className={Styles.mySwiper}
     >
-{filteredProducts.map(item => <SwiperSlide><ProductBox {...item}/></SwiperSlide>)}
+{filteredProducts.map(item => <SwiperSlide><ProductBox product={JSON.parse(JSON.stringify(item))}/></SwiperSlide>)}
       
      
     </Swiper>

@@ -3,11 +3,11 @@ import NumberToPersianWord from "number_to_persian_word";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 
-export default function ProductBox({_id,name,price, size, color, model, suitableFor, score, count, tags }) {
+export default function ProductBox({product }) {
 
-  
+  console.log("ffff : ",product)
   return (
-    <Link href={`/products/${_id}`}>
+    <Link href={`/products/${product._id}`}>
     <div data-aos="fade-up" className="flex flex-col w-56 h-[340px] z-0 justify-center  overflow-hidden hover:cursor-pointer shadow-xl border-gray-200 mb-0">
       <div className="w-full h-2/3 overflow-hidden relative group">
         <img
@@ -26,15 +26,15 @@ export default function ProductBox({_id,name,price, size, color, model, suitable
        
       </div>
       <div className="px-3 my-0 pb-3 font-BYekan">
-        <h1 className="text-xl font-BYekan"> کفش {model} {suitableFor} </h1>
-        <h1 className="text-base font-BYekan"> مدل {name} </h1>
+        <h1 className="text-xl font-BYekan"> کفش {product.model} {product.suitableFor} </h1>
+        <h1 className="text-base font-BYekan"> مدل {product.name} </h1>
         {/* <Rating value={2} readOnly /> */}
         <p className="font-BYekan">
-          {NumberToPersianWord.convertEnToPe(price)} تومان
+          {NumberToPersianWord.convertEnToPe(product.price)} تومان
         </p>
         <p>سایز</p>
         <div className="flex justify-evenly items-center w-4/5">
-         {size.map((item,index) => <p key={index} className="border-2 flex justify-center items-center px-2 border-fuchsia-900 text-fuchsia-900 rounded-full">
+         {product.size.map((item,index) => <p key={index} className="border-2 flex justify-center items-center px-2 border-fuchsia-900 text-fuchsia-900 rounded-full">
             {NumberToPersianWord.convertEnToPe(item)}
           </p>)}
           
@@ -42,7 +42,7 @@ export default function ProductBox({_id,name,price, size, color, model, suitable
         <p>رنگ</p>
         <div className="flex justify-evenly items-center w-2/3">
           
-          {color.map((item, index)=> {
+          {product.color.map((item, index)=> {
             if(item === "مشکی"){
               return <div key={index} className={`w-4 h-4 bg-black border-2 border-gray-200 `}></div>
             }else 

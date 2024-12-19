@@ -6,8 +6,9 @@ import { cookies } from "next/headers";
 import userModel from "@/root/models/User";
 import { verifyAccessToken } from "@/root/util/auth/auth";
 import connectToDB from "@/root/configs/db";
-import Header from "@/components/modules/p-user/Header";
-import SideBar from "@/components/modules/p-user/SideBar";
+import Header from "@/app/api/p-user/Header";
+import SideBar from "@/app/api/p-user/SideBar";
+import { redirect } from "next/navigation";
 
 // export const metadata = {
 //   title: "Shoes Store || فروشگاه کفش جلوه",
@@ -26,7 +27,11 @@ export default async function RootLayout({ children }) {
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
       // console.log("ussser : ", user)
+    }else{
+      redirect('/login')
     }
+  }else{
+    redirect('/login')
   }
 
   return (
@@ -37,7 +42,7 @@ export default async function RootLayout({ children }) {
             <SideBar />
           </div>
           <div className='w-4/5'>
-            <Header />
+            <Header username={user.userName} role={user.role}/>
             {children}
           </div>
         </div>

@@ -1,44 +1,40 @@
 import BreadCrumb from "@/components/modules/BreadCrumb";
 import ProductSwiper from "@/components/modules/ProductSwiper/ProductSwiper";
 import React from "react";
-// import StarRate from "@/components/modules/StarRate";
 import AddToShoppingCart from "@/components/modules/AddToShoppingCart";
 import AddToFavorites from "@/components/modules/AddToFavorites";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { LiaCertificateSolid } from "react-icons/lia";
 import { MdHighQuality } from "react-icons/md";
 import Explanation from "@/components/modules/Explanation";
-// import SimillarProducts from "@/components/modules/SimillarProducts";
 import productModel from "@/root/models/Product";
 import connectToDB from "@/root/configs/db";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io";
-import { userLogesIn } from "@/redux/users/Users";
 import { cookies } from "next/headers";
 import { verifyAccessToken } from "@/root/util/auth/auth";
 import userModel from "@/root/models/User";
 import CommentsWrapper from "@/components/modules/CommentsWrapper";
 import SimillarProducts from "@/components/modules/SimillarProducts";
 
-// import { Rating } from "react-simple-star-rating";
-
 export default async function page({ params }) {
+  connectToDB();
   let user = null;
   const token = cookies().get("token");
   if (token) {
     const tokenPayLoad = verifyAccessToken(token.value);
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
-      console.log("ussser : ", user);
+      // console.log("u/ssser : ", user);
     }
   }
   const id = params.product;
-  console.log("uuussseeerrr",user);
-  connectToDB();
+  console.log('ddddddd : ',id)
   const response = await productModel.findOne({ _id: id });
   const allProducts = await productModel.find({})
-  console.log("resss : ", response);
+  console.log("ggg", response,"zzz : ", allProducts)
+
   return (
     <div className='w-full flex flex-col gap-4 my-9'>
       <div className='w-11/12 flex mt-24 gap-4 mx-auto '>

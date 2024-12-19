@@ -17,7 +17,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { loginUser } from "@/redux/users/Users";
@@ -90,13 +90,14 @@ export default function Login() {
     console.log("response : ", response);
 
     if (response.payload.status === 200) {
-      return toast.success(
+      toast.success(
         <div className='font-BYekan text-sm'>با موفقیت وارد شدید ...</div>,
         {
           duration: 4000,
           position: "top-center"
         }
-      );
+        );
+        router.push("/");
     } else if (response.payload.status === 422) {
       return toast.error(
         <div className='font-BYekan text-sm'>
@@ -144,7 +145,7 @@ export default function Login() {
             {isPasswordShown && (
               <div dir='rtl' className=' flex justify-center items-center'>
                 <TextField
-                type="password"
+                  type='password'
                   label='رمز عبور'
                   variant='filled'
                   inputProps={{

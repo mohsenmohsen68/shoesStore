@@ -9,6 +9,7 @@ import React from "react";
 import { GiBrokenHeartZone } from "react-icons/gi";
 
 async function pages() {
+  connectToDB()
   let favorites = [];
   let user = null;
   const token = cookies().get("token");
@@ -33,7 +34,7 @@ async function pages() {
       {favorites.length > 0 ? (
         <div className='my-4 p-4 place-items-center grid gap-x-4 gap-y-8 grid-cols-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {favorites.map((item) => (
-            <ProductBox {...item.product} />
+            <ProductBox product={JSON.parse(JSON.stringify(item.product))} />
           ))}
         </div>
       ) : (

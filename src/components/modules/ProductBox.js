@@ -3,7 +3,7 @@ import NumberToPersianWord from "number_to_persian_word";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 
-export default function ProductBox({product }) {
+export default function ProductBox({product,children }) {
 
   console.log("ffff : ",product)
   return (
@@ -67,6 +67,7 @@ export default function ProductBox({product }) {
           )}
         </div>
       </div>
+      {children}
     </div>
     </Link>
     

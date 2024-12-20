@@ -6,6 +6,7 @@ import { FaRegComments } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BiLogOut } from "react-icons/bi";
+import { IoReorderFourSharp } from "react-icons/io5";
 import Link from "next/link";
 
 function SideBar() {
@@ -41,6 +42,14 @@ function SideBar() {
         </div>
         </Link>
         <Link href={'/p-user/orders'} className="w-full">
+        <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
+          <div className='w-1/6 flex justify-center items-center'>
+            <IoReorderFourSharp className='text-2xl text-green-600' />
+          </div>
+          <div>سفارش ها</div>
+        </div>
+        </Link>
+        <Link href={'/p-user/favorites'} className="w-full">
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
             <GrFavorite className='text-2xl text-red-600' />

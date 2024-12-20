@@ -6,8 +6,8 @@ import { cookies } from "next/headers";
 import userModel from "@/root/models/User";
 import { verifyAccessToken } from "@/root/util/auth/auth";
 import connectToDB from "@/root/configs/db";
-import Header from "@/app/api/p-user/Header";
-import SideBar from "@/app/api/p-user/SideBar";
+import Header from "@/components/modules/dashboard/Header";
+import SideBar from "@/components/modules/dashboard/SideBar";
 import { redirect } from "next/navigation";
 
 // export const metadata = {

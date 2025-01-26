@@ -42,7 +42,7 @@ const validateEmail = (email) => {
   return pattern.test(email);
 };
 const validatePhoneNumber = (phone) => {
-  const pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
+  const pattern = /^[0][9][0-9]{9,9}$/;
   return pattern.test(phone);
 };
 const validatePassword = (password) => {

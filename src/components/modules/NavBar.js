@@ -20,7 +20,6 @@ export default function NavBar({ isLogedIn }) {
       } else {
         setFixTop(false);
       }
-      console.log(currentScroll);
     };
     window.addEventListener("scroll", fixNavBartoTop);
     return () => window.removeEventListener("scroll", fixNavBartoTop);

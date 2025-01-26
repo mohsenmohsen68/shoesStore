@@ -70,8 +70,21 @@ export const me = createAsyncThunk("users/me", async () => {
 export const updateUser = createAsyncThunk(
   "users/updateUser",
   async (userBody) => {
-    console.log("nnnn : ", userBody);
-    return fetch("api/user", {
+    return fetch("/api/auth/signup", {
+      method: "PUT",
+      body: JSON.stringify(userBody),
+      headers: {
+        Content_Type: "application/json"
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
+export const updatePassword = createAsyncThunk(
+  "users/updatePassword",
+  async (userBody) => {
+    return fetch("/api/auth/signup/password", {
       method: "PUT",
       body: JSON.stringify(userBody),
       headers: {
@@ -122,6 +135,10 @@ const slice = createSlice({
       console.log("action : ", action);
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
+      console.log("state : ", state);
+      console.log("action : ", action);
+    });
+    builder.addCase(updatePassword.fulfilled, (state, action) => {
       console.log("state : ", state);
       console.log("action : ", action);
     });

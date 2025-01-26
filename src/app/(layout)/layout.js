@@ -9,13 +9,6 @@ import userModel from "@/root/models/User";
 import { verifyAccessToken } from "@/root/util/auth/auth";
 import connectToDB from "@/root/configs/db";
 
-// export const metadata = {
-//   title: "Shoes Store || فروشگاه کفش جلوه",
-//   description: "shop store generated with next v13",
-//   icons: {
-//     icon: "/img/1.jpg"
-//   }
-// };
 
 export default async function RootLayout({ children }) {
   let user = null;

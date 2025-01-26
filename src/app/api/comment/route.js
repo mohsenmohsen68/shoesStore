@@ -6,23 +6,21 @@ export async function POST(req) {
     try {
         connectToDB()
         const {
-            userName,
-            email,
             commentBody,
             score,
-            productID,
+            product,
+            user,
         } = await req.json()
 
         const comment = await commentModel.create({
-            userName,
-            email,
             commentBody,
             score,
-            productID
+            product,
+            user,
         })
 
 
-        await productModel.findOneAndUpdate({ _id: productID }, {
+        await productModel.findOneAndUpdate({ _id: product }, {
             $push: {
                 comments: comment._id
             }

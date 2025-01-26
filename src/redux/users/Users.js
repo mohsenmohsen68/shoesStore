@@ -68,7 +68,7 @@ export const updateUser = createAsyncThunk(
   "users/updateUser",
   async (userBody) => {
     console.log("nnnn : ", userBody);
-    return fetch("api/user", {
+    return fetch("./../api/auth/signup", {
       method: "PUT",
       body: JSON.stringify(userBody),
       headers: {

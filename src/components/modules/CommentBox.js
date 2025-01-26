@@ -8,7 +8,9 @@ import * as shamsi from 'shamsi-date-converter';
 export default function CommentBox({ commentBody, commentNumber }) {
     console.log("comment body ...", commentBody)
     return (
-        <div className=''>
+        <>
+        {commentBody.length >0 ? (
+            <div className=''>
             <div className='flex w-full font-BYekan '>
                 <div className='w-1/12'>
                     <div className='w-10 h-10 rounded-full '>
@@ -31,5 +33,12 @@ export default function CommentBox({ commentBody, commentNumber }) {
             </div>
             <hr className='w-full my-2' />
         </div>
+        ) : (
+            <div className="flex justify-center items-center font-BYekan">
+                برای این محصول هیچ نظری ثبت نشده است 
+            </div>
+        )}
+        
+        </>
     );
 }

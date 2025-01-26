@@ -17,8 +17,10 @@ export default async function page() {
   const token = cookies().get("token");
   if (token) {
     const tokenPayLoad = verifyAccessToken(token.value);
+    console.log("t",tokenPayLoad)
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
+      console.log("u",user)
       if(user){
         redirect('/')
       }

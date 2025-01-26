@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import CreateComment from "./CreateComment";
 import Image from "next/image";
 
-function explanation({product,children}) {
+function explanation({product,children, userID}) {
   const [explain, setExplain] = useState(true);
   const [moreInfo, setMoreInfo] = useState(false);
   const [comments, setComments] = useState(false);
@@ -92,7 +92,7 @@ function explanation({product,children}) {
           {/* server component */}
           {children}
           {/* client component */}
-          <CreateComment productID={product._id}/>
+          <CreateComment productID={product._id} userID={userID}/>
         </div>
       )}
     </div>

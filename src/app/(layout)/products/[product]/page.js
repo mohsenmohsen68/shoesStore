@@ -30,6 +30,7 @@ export default async function page({ params }) {
     }
   }
   const id = params.product;
+  const userID = user._id
   console.log('ddddddd : ',id)
   const response = await productModel.findOne({ _id: id });
   const allProducts = await productModel.find({})
@@ -183,7 +184,7 @@ export default async function page({ params }) {
       </div>
 
       <div className='w-11/12 mx-auto'>
-        <Explanation product={JSON.parse(JSON.stringify(response))}>
+        <Explanation product={JSON.parse(JSON.stringify(response))} userID={userID}>
           {/* server component passed into client component */}
           <CommentsWrapper
             productComments={JSON.parse(JSON.stringify(response.comments))}

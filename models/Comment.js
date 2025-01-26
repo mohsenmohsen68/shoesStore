@@ -2,13 +2,7 @@ const mongoose = require('mongoose');
 require('./Product')
 
 const schema = new mongoose.Schema({
-    userName: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-    },
+    
     commentBody: {
         type: String,
         required: true,
@@ -22,9 +16,18 @@ const schema = new mongoose.Schema({
         default: () => Date.now(),
         Immutable: false,
     },
+    status:{
+      type:String,
+      required:true,
+      default: "notAccepted"
+    },
     product: {
         type: mongoose.Types.ObjectId,
         ref: 'Product'
+    },
+    user:{
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
     }
 })
 

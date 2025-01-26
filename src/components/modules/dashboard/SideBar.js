@@ -5,9 +5,9 @@ import { MdOutlineSupportAgent } from "react-icons/md";
 import { FaRegComments } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
 import { IoSettingsOutline } from "react-icons/io5";
-import { BiLogOut } from "react-icons/bi";
 import { IoReorderFourSharp } from "react-icons/io5";
 import Link from "next/link";
+import SideBarLogout from "./SideBarLogout";
 
 function SideBar() {
   return (
@@ -68,10 +68,7 @@ function SideBar() {
         </Link>
       </div>
       <div className='h-20 flex justify-center items-center hover:bg-gray-200 shadow-lg hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
-        <div className='flex gap-2 justify-center items-center'>
-          <BiLogOut className='text-4xl text-red-600' />
-          <div>خروج</div>
-        </div>
+        <SideBarLogout/>
       </div>
     </div>
   );

@@ -47,3 +47,54 @@ export async function POST(req) {
         headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
     });
 }
+
+
+export async function PUT(req) {
+    connectToDB();
+    const { userName, email, phoneNumber, id, hasUserNameChanged, hasPhoneNumberChanged } = await req.json();
+    console.log(userName, email, phoneNumber, hasUserNameChanged, hasPhoneNumberChanged);
+
+    if (!validatePhoneNumber(phoneNumber)) {
+        return Response.json({ message: "شماره تلفن وارد شده نامعتبراست .", status: 400 })
+    }
+    if (email.length > 0 && !validateEmail(email)) {
+        return Response.json({ message: "پست الکترونیکی وارد شده نامعتبراست .", status: 400 })
+    }
+
+
+    if (hasUserNameChanged) {
+        const isUserExist = await userModel.findOne({ userName });
+
+        if (isUserExist) {
+            return Response.json({
+                message: " این کاربر قبلا ثبت نام کرده است ...",
+                status: 422
+            });
+        }
+    }
+    if (hasPhoneNumberChanged) {
+        const isUserExist = await userModel.findOne({ phoneNumber });
+
+        if (isUserExist) {
+            return Response.json({
+                message: " این کاربر قبلا ثبت نام کرده است ...",
+                status: 422
+            });
+        }
+    }
+    const accessToken = generateAccessToken({ phoneNumber })
+    const allUsers = await userModel.find({});
+    const role = allUsers.length > 0 ? "USER" : "ADMIN";
+    const user = await userModel.findOneAndUpdate({ _id: id }, {
+        userName,
+        email,
+        role,
+        phoneNumber
+    });
+    return Response.json({
+        message: "کاربر با موفقیت بروز شد ...",
+        status: 200,
+    }, {
+        headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
+    });
+}

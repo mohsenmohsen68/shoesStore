@@ -52,7 +52,7 @@
     "react-stars": "^2.2.5",
     "react-status-alert": "^1.4.1",
     "react-toastify": "^10.0.6",
-    "recharts": "^2.12.2",
+    "recharts": "^2.15.1",
     "redux": "^5.0.1",
     "sass": "^1.71.1",
     "shamsi-date-converter": "^1.0.5",

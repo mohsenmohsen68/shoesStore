@@ -1,6 +1,8 @@
 import React from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FaCircleUser } from "react-icons/fa6";
+import { RxHome } from "react-icons/rx";
+import Link from "next/link";
 
 function Header({username,role}) {
   return (
@@ -12,8 +14,11 @@ function Header({username,role}) {
           <p className="font-BYekan">{role==='ADMIN' ? "ادمین" : "کاربر عادی"}</p>
         </div>
       </div>
-      <div>
-        <IoMdNotificationsOutline className="text-3xl text-red-600"/>
+      <div className="flex gap-2">
+        <IoMdNotificationsOutline className="text-2xl text-red-600"/>
+        <Link href={'/'}>
+        <RxHome className="text-2xl text-red-600"/>
+        </Link>
       </div>
     </div>
   );

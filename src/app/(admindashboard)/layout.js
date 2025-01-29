@@ -7,7 +7,7 @@ import userModel from "@/root/models/User";
 import { verifyAccessToken } from "@/root/util/auth/auth";
 import connectToDB from "@/root/configs/db";
 import Header from "@/components/modules/dashboard/Header";
-import SideBar from "@/components/modules/dashboard/SideBar";
+import AdminSideBar from "@/components/modules/dashboard/AdminSideBar";
 import { redirect } from "next/navigation";
 
 // export const metadata = {
@@ -33,8 +33,8 @@ export default async function RootLayout({ children }) {
   }else{
     redirect('/login')
   }
-  if(user.role !== "USER"){
-    redirect('/p-admin')
+  if(user.role !== "ADMIN"){
+    redirect('/p-user')
   }
 
   return (
@@ -42,7 +42,7 @@ export default async function RootLayout({ children }) {
       <body>
         <div className='w-full flex h-dvh'>
           <div className='w-1/5'>
-            <SideBar />
+            <AdminSideBar />
           </div>
           <div className='w-4/5'>
             <Header username={user.userName} role={user.role}/>

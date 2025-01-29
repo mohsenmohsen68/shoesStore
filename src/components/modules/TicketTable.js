@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Box } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import toast, { Toaster } from "react-hot-toast";
-
+import * as shamsi from 'shamsi-date-converter';
 import { BiShow } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { updateTicket } from "@/root/redux/request/Request";
@@ -85,7 +85,7 @@ export default function TicketTable({ datas }) {
     {
         field: "responseBody",
         headerName: "پاسخ پیام",
-        width: 420,
+        width: 350,
         headerClassName: 'super-app-theme--header',
         renderCell: (params) => (
           <div className="flex justify-start font-BYekan">
@@ -94,10 +94,27 @@ export default function TicketTable({ datas }) {
         ),
   
         renderHeader: (params) => (
-          <strong className="font-BYekanBold ">
+          <strong className="font-BYekanBold text-white">
             {'پاسخ پیام  '}
   
           </strong>
+        ),
+      },
+      {
+        field: "commentDate",
+        headerName: "تاریخ ثبت",
+        width: 120,
+        headerClassName: 'super-app-theme--header',
+        renderHeader: (params) => (
+          <strong className="font-BYekanBold text-white">
+            {' تاریخ ثبت '}
+  
+          </strong>
+        ),
+        renderCell: (params) => (
+          <p className="flex justify-center font-BYekan">
+            {params.row.ticketDate}
+          </p>
         ),
       },
       {
@@ -134,6 +151,7 @@ export default function TicketTable({ datas }) {
       requestBody: item.requestBody,
       responseBody: item.responseBody,
       isChecked: item.isChecked,
+      ticketDate : (shamsi.gregorianToJalali(item.date)).toLocaleString('fa-ir', { useGrouping: false }),
       _id:item._id
     })
   );

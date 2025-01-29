@@ -10,6 +10,11 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  date: {
+    type: Date,
+    default: () => Date.now(),
+    Immutable: true,
+},
   response: {
     type: String
   },

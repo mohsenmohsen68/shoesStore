@@ -37,6 +37,20 @@ export const updateTicket = createAsyncThunk(
       .then((data) => data);
   }
 );
+export const deleteTicket = createAsyncThunk(
+  "Requests/deleteTicket",
+  async (RequestsBody) => {
+    return fetch("/api/request", {
+      method: "DELETE",
+      body: JSON.stringify(RequestsBody),
+      headers: {
+        Content_Type: "application/json"
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
 
 
 const slice = createSlice({
@@ -54,6 +68,10 @@ const slice = createSlice({
       console.log("action : ", action);
     });
     builder.addCase(updateTicket.fulfilled, (state, action) => {
+      console.log("state : ", state);
+      console.log("action : ", action);
+    });
+    builder.addCase(deleteTicket.fulfilled, (state, action) => {
       console.log("state : ", state);
       console.log("action : ", action);
     });

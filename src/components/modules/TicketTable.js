@@ -231,7 +231,7 @@ export default function TicketTable({ datas }) {
                         <button
                             className='border py-2 px-2 shadow-md bg-green-500 hover:bg-green-400 ml-2'
                             onClick={async()=>{
-                              const result = await dispatch(updateTicket({title,requestBody,responseBody,isChecked,id:ID}))
+                              const result = await dispatch(updateTicket({title,requestBody,responseBody:"",isChecked,id:ID}))
                               console.log(result)
                               if(result.payload.status === 200){
                                 toast.success(

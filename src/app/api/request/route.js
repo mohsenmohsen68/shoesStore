@@ -21,15 +21,30 @@ export async function POST(req) {
     return Response.json({ message: err }, { status: 500 });
   }
 }
+export async function DELETE(req) {
+  try {
+    connectToDB();
+    const { id } = await req.json();
+    console.log("iddd : ",id)
+    await requestModel.findOneAndDelete({_id:id});
+      return Response.json({
+        message: "request added successfully",
+        status: 200
+      }); 
+    
+    }catch (err) {
+    return Response.json({ message: err }, { status: 500 });
+  }
+}
 export async function PUT(req) {
   try {
     connectToDB();
-    const { title,  requestBody, user,isChecked,id } = await req.json();
+    const { title,  requestBody,responseBody, user,isChecked,id } = await req.json();
     console.log(title, requestBody, user,isChecked);
     const request = await requestModel.findOneAndUpdate({_id:id},{
       title,
       requestBody,
-      response: "",
+      response: responseBody,
       isChecked,
       user
     });

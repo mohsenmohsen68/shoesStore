@@ -27,7 +27,7 @@ export const createANewComment = createAsyncThunk(
 export const updateComments = createAsyncThunk(
   "Comments/updateComments",
   async (CommentsBody) => {
-    return fetch("api/comment", {
+    return fetch("/api/comment", {
       method: "PUT",
       body: JSON.stringify(CommentsBody),
       headers: {
@@ -41,7 +41,7 @@ export const updateComments = createAsyncThunk(
 export const deleteComments = createAsyncThunk(
   "Comments/deleteComments",
   async (CommentsBody) => {
-    return fetch("api/comment", {
+    return fetch("/api/comment", {
       method: "DELETE",
       body: JSON.stringify(CommentsBody),
       headers: {

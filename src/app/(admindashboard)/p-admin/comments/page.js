@@ -5,7 +5,7 @@ import { verifyAccessToken } from '@/root/util/auth/auth';
 import userModel from '@/root/models/User';
 import commentModel from '@/root/models/Comment';
 import connectToDB from '@/root/configs/db';
-
+import AdminCommentTable from '@/components/modules/dashboard/AdminCommentTable'
 import * as shamsi from 'shamsi-date-converter';
 
 export default async function page() {
@@ -21,10 +21,9 @@ export default async function page() {
     }
   }
   if (user) {
-    console.log('user .. ',user._id)
-    comments = await commentModel.find({ user: user._id }).populate("product", "name").lean();
-      console.log("fav:",comments)
-      comments.map(item=>{neededData.push({comment: item.commentBody, score:item.score, product:item.product, status: item.status, date: (shamsi.gregorianToJalali(item.date)).toLocaleString('fa-ir', { useGrouping: false }) })})
+    comments = await commentModel.find({  }).populate("product", "name").lean();
+      // console.log("fav:",comments)
+      comments.map(item=>{neededData.push({comment: item.commentBody, commentID:item._id, score:item.score, product:item.product, status: item.status, date: (shamsi.gregorianToJalali(item.date)).toLocaleString('fa-ir', { useGrouping: false }) })})
     } else {
     redirect("/login");
   }
@@ -32,7 +31,7 @@ export default async function page() {
 
   return (
     <div className='w-full h-[calc(100%-80px)] '>
-      <DataTable datas={JSON.parse(JSON.stringify(neededData))}/>
+      <AdminCommentTable datas={JSON.parse(JSON.stringify(neededData))}/>
     </div>
   )
 }

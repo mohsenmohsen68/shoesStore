@@ -1,9 +1,9 @@
 import React from "react";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { SlBasketLoaded } from "react-icons/sl";
+import { TiShoppingCart } from "react-icons/ti";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { FaRegComments } from "react-icons/fa6";
-import { GrFavorite } from "react-icons/gr";
+import { FaUsers } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoReorderFourSharp } from "react-icons/io5";
 import Link from "next/link";
@@ -24,7 +24,7 @@ function SideBar() {
           <div className='w-5/6 flex justify-start items-center'>داشبورد</div>
         </div>
         </Link>
-        <Link href={'/p-user/tickets'} className="w-full">
+        <Link href={'/p-admin/tickets'} className="w-full">
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
             <MdOutlineSupportAgent className='text-2xl text-orange-500' />
@@ -32,7 +32,7 @@ function SideBar() {
           <div>تیکت ها</div>
         </div>
         </Link>
-        <Link href={'/p-user/comments'} className="w-full">
+        <Link href={'/p-admin/comments'} className="w-full">
 
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
@@ -41,23 +41,23 @@ function SideBar() {
           <div>کامنت ها </div>
         </div>
         </Link>
-        <Link href={'/p-user/orders'} className="w-full">
+        <Link href={'/p-admin/orders'} className="w-full">
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
-            <IoReorderFourSharp className='text-2xl text-green-600' />
+            <TiShoppingCart className='text-2xl text-green-600' />
           </div>
           <div>سفارش ها</div>
         </div>
         </Link>
-        <Link href={'/p-user/favorites'} className="w-full">
+        <Link href={'/p-admin/users'} className="w-full">
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
-            <GrFavorite className='text-2xl text-red-600' />
+            <FaUsers className='text-2xl text-red-600' />
           </div>
-          <div>علاقه مندی ها</div>
+          <div>کاربران</div>
         </div>
         </Link>
-        <Link href={'/p-user/settings'} className="w-full">
+        <Link href={'/p-admin/settings'} className="w-full">
 
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>

@@ -1,4 +1,4 @@
-import Tickets from '@/components/modules/dashboard/Tickets'
+import AdminTickets from '@/components/modules/dashboard/AdminTickets';
 import connectToDB from '@/root/configs/db';
 import requestModel from '@/root/models/Requests';
 import userModel from '@/root/models/User';
@@ -19,9 +19,7 @@ export default async function page() {
     }
   }
   if (user) {
-    console.log('user .. ',user._id)
-    tickets = await requestModel.find({ user: user._id });
-      console.log("fav:",tickets)
+    tickets = await requestModel.find({  });
        } else {
     redirect("/login");
   }
@@ -29,7 +27,7 @@ export default async function page() {
 
   return (
     <div className='w-full h-[calc(100%-80px)]  '>
-      <Tickets tickets={JSON.parse(JSON.stringify(tickets))} user={JSON.parse(JSON.stringify(user))}/>
+      <AdminTickets tickets={JSON.parse(JSON.stringify(tickets))} user={JSON.parse(JSON.stringify(user))}/>
     </div>
   )
 }

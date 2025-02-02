@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getUsersFromServer = createAsyncThunk(
   "users/getUsersFromServer",
-  async (url) => {
-    return fetch(url)
+  async () => {
+    return fetch("/api/users")
       .then((res) => res.json())
       .then((data) => data);
   }
@@ -14,6 +14,21 @@ export const createANewUser = createAsyncThunk(
   async (userBody) => {
     console.log("redux : ", userBody);
     return fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify(userBody),
+      headers: {
+        Content_Type: "application/json"
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
+export const addNewUser = createAsyncThunk(
+  "users/addNewUser",
+  async (userBody) => {
+    console.log("redux : ", userBody);
+    return fetch("/api/users", {
       method: "POST",
       body: JSON.stringify(userBody),
       headers: {
@@ -70,8 +85,22 @@ export const me = createAsyncThunk("users/me", async () => {
 export const updateUser = createAsyncThunk(
   "users/updateUser",
   async (userBody) => {
-    return fetch("/api/auth/signup", {
+    return fetch("/api/users", {
       method: "PUT",
+      body: JSON.stringify(userBody),
+      headers: {
+        Content_Type: "application/json"
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (userBody) => {
+    return fetch("/api/users", {
+      method: "DELETE",
       body: JSON.stringify(userBody),
       headers: {
         Content_Type: "application/json"
@@ -98,13 +127,13 @@ export const updatePassword = createAsyncThunk(
 
 const slice = createSlice({
   name: "users",
-  initialState: {isUserLogged:false},
+  initialState: { isUserLogged: false },
   reducers: {
-    userLogesIn:(state,action)=>{
-      return {isUserLogged:true}
+    userLogesIn: (state, action) => {
+      return { isUserLogged: true }
     },
-    userLogesOut:(state,action)=>{
-      return {isUserLogged:false}
+    userLogesOut: (state, action) => {
+      return { isUserLogged: false }
     }
   },
 
@@ -115,6 +144,10 @@ const slice = createSlice({
       // state.concat(...action.payload.data);
     });
     builder.addCase(createANewUser.fulfilled, (state, action) => {
+      console.log("state : ", state);
+      console.log("action : ", action);
+    });
+    builder.addCase(addNewUser.fulfilled, (state, action) => {
       console.log("state : ", state);
       console.log("action : ", action);
     });
@@ -142,8 +175,12 @@ const slice = createSlice({
       console.log("state : ", state);
       console.log("action : ", action);
     });
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      console.log("state : ", state);
+      console.log("action : ", action);
+    });
   }
 });
 
 export default slice.reducer;
-export const {userLogesOut, userLogesIn} = slice.actions;
+export const { userLogesOut, userLogesIn } = slice.actions;

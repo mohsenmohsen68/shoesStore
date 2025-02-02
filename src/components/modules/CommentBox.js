@@ -19,7 +19,7 @@ export default function CommentBox({ commentBody, commentNumber }) {
                 </div>
                 <div className='w-11/12 flex flex-col'>
                     <div className='flex justify-between items-center '>
-                        <div className=' mx-2 font-bold'>{commentBody[0].userName}</div>
+                        <div className=' mx-2 text-sm'>{commentBody[0].user.userName ? commentBody[0].user.userName: "ناشناس"}</div>
                         <div className="font-BYekan">
                             (<Rating size={20} transition={true} rtl SVGclassName="flex" SVGstyle={{ 'display': 'inline' }} initialValue={commentBody[0].score} readonly />)
                         </div>

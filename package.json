@@ -20,6 +20,7 @@
     "@mui/styled-engine-sc": "^6.2.1",
     "@mui/styles": "^5.15.13",
     "@mui/x-data-grid": "^7.23.3",
+    "@persian-tools/persian-tools": "^3.6.0",
     "@reduxjs/toolkit": "^2.4.0",
     "@simuratli/rating": "^3.0.3",
     "@stack-pulse/react-star-rating": "^1.0.1",

@@ -16,6 +16,7 @@ export default function ProfileSetting() {
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [id, setId] = useState(0);
   const [passVisible, setPassVisible] = useState(false);
   const [passVisible1, setPassVisible1] = useState(false);
@@ -32,6 +33,7 @@ export default function ProfileSetting() {
       console.log(res);
       setUserName(res.data.userName);
       setPhoneNumber(res.data.phoneNumber);
+      setRole(res.data.role)
       setLastUserName(res.data.userName);
       setLastPhoneNumber(res.data.phoneNumber);
       setEmail(res.data.email);
@@ -46,6 +48,7 @@ export default function ProfileSetting() {
     const body = {
       userName,
       phoneNumber,
+      role,
       email,
       id,
       hasUserNameChanged,
@@ -77,7 +80,7 @@ export default function ProfileSetting() {
           position: "top-center"
         }
       );
-      router.replace("/login");
+      router.refresh();
     }
   };
 

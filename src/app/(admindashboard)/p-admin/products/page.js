@@ -1,9 +1,11 @@
+
 import React from 'react'
 import connectToDB from '@/root/configs/db';
 import userModel from '@/root/models/User';
 import { verifyAccessToken } from '@/root/util/auth/auth';
 import { cookies } from 'next/headers';
 import productModel from '@/root/models/Product';
+import AdminProducts from '@/components/modules/dashboard/AdminProducts';
 
 async function page() {
 

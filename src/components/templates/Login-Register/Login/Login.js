@@ -98,6 +98,7 @@ export default function Login() {
         }
         );
         router.push("/");
+        router.refresh();
     } else if (response.payload.status === 422) {
       return toast.error(
         <div className='font-BYekan text-sm'>

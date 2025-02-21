@@ -5,16 +5,17 @@ import { useDispatch } from 'react-redux';
 import AdminProductTable from './AdminProductTable';
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import InputColor from "react-input-color";
-
 import toast, { Toaster } from "react-hot-toast";
+import { hsvaToHex, getContrastingColor, } from '@uiw/color-convert';
+import Swatch from '@uiw/react-color-swatch';
+import { useRouter } from 'next/navigation';
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "60%",
+  width: "70%",
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
@@ -23,13 +24,27 @@ const style = {
   overflow: "auto"
 };
 
+function Point(props) {
+  if (!props.checked) return null;
+  return (
+    <div
+      style={{
+        height: 5,
+        width: 5,
+        borderRadius: '50%',
+        backgroundColor: getContrastingColor(props.color),
+      }}
+    />
+  );
+}
+
 export default function AdminProducts({ products, user }) {
+  const router = useRouter()
   console.log("products : ", products, "user : ", user);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [suitableFor, setSuitableFor] = useState("");
@@ -39,12 +54,15 @@ export default function AdminProducts({ products, user }) {
   const [shortDesc, setShortDesc] = useState("");
   const [longDesc, setLongDesc] = useState("");
   const [img, setImg] = useState([]);
+  const [imgs, setImgs] = useState([]);
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState("");
   const [sizes, setSizes] = useState([]);
   const [size, setSize] = useState("");
   const [colors, setColors] = useState([]);
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#fff");
+
+
 
   const registerHandler = async () => {
     const res = await dispatch(
@@ -57,7 +75,7 @@ export default function AdminProducts({ products, user }) {
         shoesmodel: shoesModel,
         shortDesc,
         longDesc,
-        img,
+        imgs,
         tags,
         size: sizes,
         color: colors
@@ -80,6 +98,40 @@ export default function AdminProducts({ products, user }) {
       toast.error(
         <div className='font-BYekan text-sm'>
           تمام فیلد ها را باید پر کنید...{" "}
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
+  }
+
+  const addPicture = async () => {
+    const formData = new FormData()
+    formData.append("img", img)
+    const res = await fetch('/api/product/myimages', {
+      method: 'POST',
+      body: formData,
+    })
+    const body = await res.json()
+    console.log("res :........ ", res, "body.....", body)
+    if (res.status === 200) {
+      setImgs((prev) => [...prev, `http://localhost:3000/uploads/shoesImage/${body.data}`]);
+      console.log("imgs : ", imgs)
+      toast.success(
+        <div className='font-BYekan text-sm'>
+          عکس با موفقیت اضافه شد...{" "}
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    } else {
+      toast.error(
+        <div className='font-BYekan text-sm'>
+          مشکلی رخ داده است...
         </div>,
         {
           duration: 4000,
@@ -182,19 +234,21 @@ export default function AdminProducts({ products, user }) {
             <div className='flex w-full border border-black'>
               <div className='flex flex-col w-full'>
                 <div className='flex w-full'>
-                  <div className='w-5/6 flex items-center'>
-                    <div className='flex gap-2'>
-                      <InputColor
-                        initialValue='#5e72e4'
-                        onChange={setColor}
-                        placement='right'
-                      />
-                      <div
-                        style={{
-                          width: 15,
-                          height: 15,
-                          marginTop: 0,
-                          backgroundColor: color.hex
+                  <div className='w-5/6 flex items-center justify-center'>
+                    <div className='flex pr-2 gap-2 z-50'>
+                      <Swatch
+                        colors={['#03045e', '#03071e', '#540b0e', '#b23a48', '#e63946', '#ced4da', '#fcf300', '#0466c8', '#4f772d']}
+                        color={color}
+                        rectProps={{
+                          children: <Point />,
+                          style: {
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          },
+                        }}
+                        onChange={(hsvColor) => {
+                          setColor(hsvaToHex(hsvColor))
                         }}
                       />
                     </div>
@@ -203,14 +257,7 @@ export default function AdminProducts({ products, user }) {
                     <button
                       className='bg-green-400'
                       onClick={() => {
-                        const isThereColor = colors.some(
-                          (item) => item === color.hex
-                        );
-                        console.log(isThereColor);
-                        if (!isThereColor) {
-                          return setColors((prev) => [...prev, color.hex]);
-                        }
-                        return;
+                        setColors((prev) => [...prev, color]);
                       }}
                     >
                       +
@@ -218,25 +265,17 @@ export default function AdminProducts({ products, user }) {
                     <button
                       className='bg-red-400'
                       onClick={() => {
-                        const isThereColor = colors.some(
-                          (item) => item === color.hex
-                        );
-                        console.log(isThereColor);
-                        if (isThereColor) {
-                          return setColors((prev) =>
-                            prev.filter((item) => item !== color.hex)
-                          );
-                        }
-                        return;
+                        const newColors = colors.filter(item => item !== color)
+                        setColors(newColors)
                       }}
                     >
                       -
                     </button>
                   </div>
                 </div>
-                <div className='flex justify-start w-full'>
+                <div className='flex justify-center gap-2 w-full'>
                   {colors.map((item) => (
-                    <div className='flex gap-2 w-full bg-red-50'>
+                    <div className='flex justify-center gap-2 '>
                       <div
                         className={`w-5 h-5`}
                         style={{ backgroundColor: `${item.toString(16)}` }}
@@ -248,14 +287,32 @@ export default function AdminProducts({ products, user }) {
                 </div>
               </div>
             </div>
-            <input
-              type='file'
-              multiple
-              value={img}
-              onChange={(e) => setImg(e.target.value)}
-              placeholder='عکس'
-              className='w-full'
-            />
+            <div className='flex w-full border border-black '>
+              <div className='flex w-full'>
+                <div className='w-5/6 flex items-center pr-2'>
+                  <label htmlFor="files" className='font-BYekan border px-2 py-1 bg-green-300'>افزودن عکس</label>
+                  <input
+                    type='file'
+                    id="files"
+                    onChange={(e) => setImg(e.target.files[0])}
+                    accept='image/png, image/jpeg'
+                    placeholder='عکس'
+                    className='w-full hidden'
+                  />
+                </div>
+                <div className='flex justify-center items-center h-full w-1/6 '>
+                  <button
+                    className='bg-green-400 w-full h-full'
+                    onClick={() => {
+                      addPicture()
+                    }}
+                  >
+                    +
+                  </button>
+
+                </div>
+              </div>
+            </div>
           </div>
           <div className='w-full text-center flex justify-center items-center  lg:flex-col gap-2 mx-auto'>
             <div className='flex w-full border border-black'>
@@ -341,8 +398,6 @@ export default function AdminProducts({ products, user }) {
                     >
                       +
                     </button>
-                    {console.log("tags :", tags)}
-                    {console.log("shoes :", sizes)}
                     <button
                       className='bg-red-400'
                       onClick={() => {

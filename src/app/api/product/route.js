@@ -7,10 +7,10 @@ async function POST(req) {
     try {
         connectToDB();
         const body = await req.json();
-        const { name, price, shortDesc, longDesc, size, color, shoesmodel, suitableFor, wholeScore, count, tags } = body;
-        console.log( name, price, shortDesc, longDesc, size, color, shoesmodel, suitableFor, wholeScore, count, tags)
+        const { name, price, shortDesc, longDesc, size, color, shoesmodel, suitableFor, wholeScore, count, tags, imgs } = body;
+        console.log( name, price, shortDesc, longDesc, size, color, shoesmodel, suitableFor, wholeScore, count, tags, imgs)
         const product = await productModel.create({
-            name, price, shortDesc, longDesc, size, color, shoesmodel, suitableFor, wholeScore, count, tags, img:["img"]
+            name, price, shortDesc, longDesc, size, color, shoesmodel, suitableFor, wholeScore, count, tags, img:imgs
         });
 
         return Response.json({ message: 'product added successfully',  status: 201 })

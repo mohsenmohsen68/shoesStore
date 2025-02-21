@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ShopPromote() {
+export default function ShopPromote({img1,img2}) {
   return (
     <div className="w-11/12 h-72 mx-auto flex mt-20 md:flex-col md:space-y-6 mb-24 md:mb-72 sm:mb-20 ">
       <div className="w-1/2 md:w-full flex">
@@ -30,8 +30,8 @@ export default function ShopPromote() {
           className=" perspective-400 w-2/3 h-full"
         >
           <img
-            src="/img/promote4.jpg"
-            className="transform w-full h-full  hover:-rotate-y-0 rotate-y-45  transition-all duration-1000"
+            src={img1}
+            className="transform w-full h-full  hover:-rotate-y-0 rotate-y-45 shadow-lg transition-all duration-1000"
             alt=""
           />
         </div>
@@ -40,7 +40,7 @@ export default function ShopPromote() {
 
       <div className="w-1/2 md:w-full flex">
         <div data-aos="fade-right" className=" perspective-400 w-2/3 h-full flex" >
-          <img src="/img/promote2.jpg" className="transform w-full h-full -rotate-y-45 hover:rotate-y-0  transition-all duration-1000" alt="promote image" />
+          <img src={img2} className="transform w-full h-full -rotate-y-45 hover:rotate-y-0  transition-all duration-1000 shadow-lg" alt="promote image" />
         </div>
 
         <div className="w-1/3 relative ">

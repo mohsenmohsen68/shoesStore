@@ -16,6 +16,8 @@ export default function ProfileSetting() {
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [userImg, setUserImg] = useState("");
   const [id, setId] = useState(0);
   const [passVisible, setPassVisible] = useState(false);
   const [passVisible1, setPassVisible1] = useState(false);
@@ -23,6 +25,8 @@ export default function ProfileSetting() {
   const [lastPass, setLastPass] = useState("");
   const [newPass1, setNewPass1] = useState("");
   const [newPass2, setNewPass2] = useState("");
+  const [img, setImg] = useState([])
+  console.log("image", img)
 
   useEffect(() => {
     const getUser = async () => {
@@ -32,6 +36,8 @@ export default function ProfileSetting() {
       console.log(res);
       setUserName(res.data.userName);
       setPhoneNumber(res.data.phoneNumber);
+      setRole(res.data.role)
+      setUserImg(res.data.img)
       setLastUserName(res.data.userName);
       setLastPhoneNumber(res.data.phoneNumber);
       setEmail(res.data.email);
@@ -40,12 +46,54 @@ export default function ProfileSetting() {
     getUser();
   }, []);
 
+
+const uploadIMG = async()=>{
+  const formData = new FormData()
+    formData.append("img", img)
+    const res = await fetch('/api/users/myimages', {
+      method: 'PUT',
+      body: formData,
+    })
+    const body = await res.json()
+    console.log("res :........ ", res, "body.....", body)
+    if (res.status === 200) {
+      const res = await fetch('/api/users/myimages/uploadimgapi', {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({userID:id , img: `http://localhost:3000/uploads/usersImage/${body.data}`}),
+      })
+      console.log("imgUpload res ..", res)
+      toast.success(
+        <div className='font-BYekan text-sm'>
+          عکس با موفقیت اضافه شد...{" "}
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    } else {
+      toast.error(
+        <div className='font-BYekan text-sm'>
+          مشکلی رخ داده است...
+        </div>,
+        {
+          duration: 4000,
+          position: "top-center"
+        }
+      );
+    }
+}
+
   const changeInfoHandler = async () => {
     const hasUserNameChanged = lastUserName !== userName;
     const hasPhoneNumberChanged = lastPhoneNumber !== phoneNumber;
     const body = {
       userName,
       phoneNumber,
+      role,
       email,
       id,
       hasUserNameChanged,
@@ -77,7 +125,7 @@ export default function ProfileSetting() {
           position: "top-center"
         }
       );
-      router.replace("/login");
+      router.refresh();
     }
   };
 
@@ -239,7 +287,7 @@ const changePasswordHandler = async() => {
         <div className='flex justify-center items-center w-full mb-2'>
           <label
             htmlFor='myfile'
-            className='p-4 border-dashed border-green-700 border-2 bg-green-500 hover:bg-green-400'
+            className='p-4 border-dashed border-green-700 border-2 bg-green-500 hover:bg-green-400 hover:text-white mx-4'
           >
             انتخاب عکس{" "}
           </label>
@@ -249,7 +297,9 @@ const changePasswordHandler = async() => {
             id='myfile'
             accept='image/png, image/jpeg'
             className='hidden'
+            onChange={(e) => setImg(e.target.files[0])}
           />
+          <button className="p-4 bg-green-500 hover:bg-green-400 hover:text-white" onClick={uploadIMG}>ثبت عکس پروفایل</button>
         </div>
       </div>
       <hr />

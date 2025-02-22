@@ -12,7 +12,7 @@ export default function CommentsWrapper({productComments}) {
             {productComments.map(async(item) =>  {
             console.log("comments ... ", item)
             connectToDB();
-            const comment = await commentModel.find({_id:item });
+            const comment = await commentModel.find({_id:item }).populate('user', "userName");
             console.log("sss", comment)
             return <CommentBox key={item} commentNumber={productComments.length} commentBody={JSON.parse(JSON.stringify(comment))}/>
         })

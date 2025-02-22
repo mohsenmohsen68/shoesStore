@@ -4,8 +4,8 @@ import { generateAccessToken, hashPassword, validateEmail, validatePassword, val
 
 export async function POST(req) {
     connectToDB();
-    const { userName, email, password, phoneNumber } = await req.json();
-    console.log(userName, email, password, phoneNumber);
+    let { userName, email, password, phoneNumber, role, createdByAdmin } = await req.json();
+    console.log(userName, email, password, phoneNumber, role);
 
     if (!validatePhoneNumber(phoneNumber)) {
         return Response.json({ message: "شماره تلفن وارد شده نامعتبراست .", status: 400 })
@@ -32,7 +32,9 @@ export async function POST(req) {
     const accessToken = generateAccessToken({ userName })
 
     const allUsers = await userModel.find({});
-    const role = allUsers.length > 0 ? "USER" : "ADMIN";
+    if (!role) {
+        role = allUsers.length > 0 ? "USER" : "ADMIN";
+    }
     const user = await userModel.create({
         userName,
         password: newPassword,
@@ -40,19 +42,27 @@ export async function POST(req) {
         role,
         phoneNumber
     });
-    return Response.json({
-        message: "کاربر با موفقیت اضافه شد ...",
-        status: 201,
-    }, {
-        headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
-    });
+    if (createdByAdmin) {
+        return Response.json({
+            message: "کاربر با موفقیت اضافه شد ...",
+            status: 201,
+        });
+    } else {
+        return Response.json({
+            message: "کاربر با موفقیت اضافه شد ...",
+            status: 201,
+        }, {
+            headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
+        });
+
+    }
 }
 
 
 export async function PUT(req) {
     connectToDB();
-    const { userName, email, phoneNumber, id, hasUserNameChanged, hasPhoneNumberChanged } = await req.json();
-    console.log(userName, email, phoneNumber, hasUserNameChanged, hasPhoneNumberChanged);
+    let { userName, email, phoneNumber, id, hasUserNameChanged, hasPhoneNumberChanged, role } = await req.json();
+    console.log(userName, email, phoneNumber, hasUserNameChanged, hasPhoneNumberChanged, role);
 
     if (!validatePhoneNumber(phoneNumber)) {
         return Response.json({ message: "شماره تلفن وارد شده نامعتبراست .", status: 400 })
@@ -82,9 +92,8 @@ export async function PUT(req) {
             });
         }
     }
-    const accessToken = generateAccessToken({ phoneNumber })
     const allUsers = await userModel.find({});
-    const role = allUsers.length > 0 ? "USER" : "ADMIN";
+    role = role ? role : allUsers.length > 0 ? "USER" : "ADMIN";
     const user = await userModel.findOneAndUpdate({ _id: id }, {
         userName,
         email,
@@ -94,7 +103,5 @@ export async function PUT(req) {
     return Response.json({
         message: "کاربر با موفقیت بروز شد ...",
         status: 200,
-    }, {
-        headers: { "Set-Cookie": `token=${accessToken};path=/;httpOnly=true` },
     });
 }

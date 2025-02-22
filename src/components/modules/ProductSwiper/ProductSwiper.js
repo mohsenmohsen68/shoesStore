@@ -14,7 +14,8 @@ import Styles from "./ProductSwiper.module.css";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
 
-function ProductSwiper() {
+function ProductSwiper({ pictures }) {
+  console.log("pictures : ", pictures)
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <>
@@ -30,21 +31,13 @@ function ProductSwiper() {
         modules={[FreeMode, Navigation, Thumbs]}
         className={Styles.mySwiper2}
       >
-        <SwiperSlide>
-          <Image src="/img/banner1.jpg" fill />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image src="/img/banner2.jpg" fill />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image src="/img/banner3.jpg" fill />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="/img/banner4.jpg"
-            fill
-          />
-        </SwiperSlide>
+        {pictures.map(item => (
+          <SwiperSlide>
+            <Image src={item} fill />
+          </SwiperSlide>
+        ))}
+
+
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -54,20 +47,14 @@ function ProductSwiper() {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className={Styles.mySwiper}
+        className={`${Styles.mySwiper} mt-2 shadow-md`}
       >
-        <SwiperSlide>
-          <Image src="/img/banner1.jpg"  fill />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image src="/img/banner2.jpg"  fill/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image src="/img/banner3.jpg"  fill/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image src="/img/banner4.jpg"  fill/>
-        </SwiperSlide>
+        {pictures.map(item => (
+          <SwiperSlide>
+            <Image src={item} fill className="shadow-md"/>
+          </SwiperSlide>
+        ))}
+
       </Swiper>
     </>
   );

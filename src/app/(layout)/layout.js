@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
 
       <body >
-        <NavBar isLogedIn={user ? true : false} />
+        <NavBar isLogedIn={user ? true : false} user={JSON.parse(JSON.stringify(user))}/>
         <ScrollToTop />
         <AosInit />
         {children}

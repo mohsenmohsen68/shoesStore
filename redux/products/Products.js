@@ -27,7 +27,7 @@ export const createANewProduct = createAsyncThunk(
 export const updateProducts = createAsyncThunk(
   "Products/updateProducts",
   async (ProductsBody) => {
-    return fetch("api/Product", {
+    return fetch("/api/product", {
       method: "PUT",
       body: JSON.stringify(ProductsBody),
       headers: {
@@ -41,7 +41,7 @@ export const updateProducts = createAsyncThunk(
 export const deleteProducts = createAsyncThunk(
   "Products/deleteProducts",
   async (ProductsBody) => {
-    return fetch("api/Product", {
+    return fetch("/api/product", {
       method: "DELETE",
       body: JSON.stringify(ProductsBody),
       headers: {

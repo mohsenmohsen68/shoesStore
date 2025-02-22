@@ -3,7 +3,6 @@ import React from "react";
 import Swal from "sweetalert2";
 
 import { BiLogOut } from "react-icons/bi";
-import swal from "sweetalert";
 
 export default function SideBarLogout() {
   const logoutHandler = () => {

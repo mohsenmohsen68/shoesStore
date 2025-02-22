@@ -14,7 +14,7 @@ import ArticlesSwiper from "@/components/modules/ArticlesSwiper";
       <Title title={'جدیدترین محصولات'} action={'نمایش بیشتر'} />
       <LatestProducts />
       <Title title={'چرا کفش جلوه ...'} action={'نمایش بیشتر'} />
-      <ShopPromote />
+      <ShopPromote img1={"/img/promote4.jpg"} img2={"/img/promote2.jpg"}/>
       <Title title={'آخرین مقالات'} action={'نمایش بیشتر'} />
       <ArticlesSwiper />
     </div>

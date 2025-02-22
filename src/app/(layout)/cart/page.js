@@ -5,9 +5,8 @@ import React from 'react'
 export default function page() {
   return (
     <div className='mt-28 mb-4'>
-              <BreadCrumb titles={"سبد خرید"} />
-
-      <ShoppingCart/>
+      <BreadCrumb titles={"سبد خرید"} />
+      <ShoppingCart />
     </div>
   )
 }

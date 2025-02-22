@@ -69,7 +69,7 @@ export default function NavBar({ isLogedIn, user }) {
                 "mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
             },
             title: "با موفقیت خارج شدید...",
-            timer:2000,
+            timer: 2000,
           });
           location.replace('/')
         }
@@ -200,14 +200,13 @@ export default function NavBar({ isLogedIn, user }) {
 
           <div className='flex justify-evenly gap-x-3 w-full h-full items-center  '>
             <div className="w-10 h-10 rounded-full relative  flex justify-center items-center group" >
-              <div className="w-10 h-10 rounded-full fixed bg-red-50 overflow-hidden flex justify-center items-center">
+              <div className="w-10 h-10 rounded-full relative bg-red-50 overflow-hidden flex justify-center items-center">
                 {user?.img ? <Image src={user?.img} fill={true} alt="عکس پروفایل" /> : <FaRegUser className="w-5 h-5 " />}
               </div>
               <div className="flex overflow-hidden absolute top-10 w-28 rounded-md border flex-col justify-center items-center bg-slate-300 invisible group-hover:visible">
-              <Link href={"/p-user"} className="w-full">
-                <div className="w-full p-2 hover:bg-slate-400 hover:cursor-pointer">حساب کاربری</div>
+                <Link href={"/p-user"} className="w-full">
+                  <div className="w-full p-2 hover:bg-slate-400 hover:cursor-pointer">حساب کاربری</div>
                 </Link>
-                
                 <div className="w-full p-2 hover:bg-slate-400 hover:cursor-pointer" onClick={() => logoutHandler()}>خروج</div>
               </div>
             </div>

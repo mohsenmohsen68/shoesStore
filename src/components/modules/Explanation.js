@@ -8,6 +8,7 @@ function explanation({ product, children, userID }) {
   const [explain, setExplain] = useState(true);
   const [moreInfo, setMoreInfo] = useState(false);
   const [comments, setComments] = useState(false);
+  
   return (
     <div>
       <div className='flex justify-center gap-2 my-5'>
@@ -90,11 +91,11 @@ function explanation({ product, children, userID }) {
         </div>
       )}
       {comments && (
-        <div className=' mt-9 flex h-[600px] '>
+        <div className=' mt-9 flex md:flex-col md:gap-9'>
           {/* server component */}
           {children}
           {/* client component */}
-          <CreateComment productID={JSON.parse(JSON.stringify(product._id))} userID={JSON.parse(JSON.stringify(userID))} />
+          <CreateComment productID={JSON.parse(JSON.stringify(product._id))} userID={userID ? JSON.parse(JSON.stringify(userID)) : ""} />
         </div>
       )}
     </div>

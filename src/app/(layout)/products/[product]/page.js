@@ -22,28 +22,28 @@ import { Ri24HoursFill } from "react-icons/ri";
 
 export default async function page({ params }) {
   connectToDB();
+  console.log("params : ", params)
   let user = null;
   const token = cookies().get("token");
   if (token) {
     const tokenPayLoad = verifyAccessToken(token.value);
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
-      // console.log("u/ssser : ", user);
     }
   }
   const id = params.product;
-  const userID = user._id
+  const userID = user?._id
   const response = await productModel.findOne({ _id: id });
-  console.log("response : ", response)
   const allProducts = await productModel.find({})
 
   return (
     <div className='w-full flex flex-col gap-4 my-9'>
-      <div className='w-11/12 flex mt-24 gap-4 mx-auto '>
-        <div className='w-2/5 h-[500px] '>
+      {/* product top section */}
+      <div className='w-11/12 flex md:flex-col mt-24 gap-4 mx-auto '>
+        <div className='w-2/5 md:w-full h-[500px] '>
           <ProductSwiper pictures={JSON.parse(JSON.stringify(response.img))} />
         </div>
-        <div className='w-3/5 flex flex-col'>
+        <div className='w-3/5 md:w-full flex flex-col'>
           <div className='flex w-full'>
             <div className='w-11/12 m-0'>
               <BreadCrumb titles={id} />
@@ -165,40 +165,42 @@ export default async function page({ params }) {
               ))}
             </div>
             <div className='flex items-center'>
-              <AddToFavorites userID={JSON.parse(JSON.stringify(user._id))} productID={JSON.parse(JSON.stringify(response._id))}/>
+              <AddToFavorites userID={userID ? JSON.parse(JSON.stringify(userID)) : ""} productID={JSON.parse(JSON.stringify(response._id))} />
               <div className='mr-4 font-BYekan'>افزودن به علاقه مندی ها</div>
             </div>
-            <AddToShoppingCart product = {JSON.parse(JSON.stringify(response))}/>
+            <AddToShoppingCart product={JSON.parse(JSON.stringify(response))} />
 
           </div>
         </div>
       </div>
       <hr className='border-slate-400' />
-      <div className='flex justify-evenly my-5'>
-        <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
-          <CiDeliveryTruck className='w-20 h-20 text-orange-500' />
-          <p>تحویل سریع و آسان</p>
+      <div className='flex justify-evenly md:flex-col md:gap-4 my-5'>
+        <div className="flex justify-evenly gap-4 w-full">
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <CiDeliveryTruck className='w-20 h-20 text-orange-500' />
+            <p>تحویل سریع و آسان</p>
+          </div>
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <Ri24HoursFill className='w-20 h-20 text-blue-500' />
+            <p>ارایه شبانه روزی خدمات</p>
+          </div>
         </div>
-        <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
-          <Ri24HoursFill className='w-20 h-20 text-blue-500' />
-          <p>ارایه شبانه روزی خدمات</p>
-        </div>
-        <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
-          <LiaCertificateSolid className='w-20 h-20 text-green-500' />
-          <p>ضمانت اصل بودن کالا</p>
-        </div>
-        <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
-          <MdHighQuality className='w-20 h-20 text-yellow-200' />
-          <p>تضمین کیفیت</p>
+        <div className="flex justify-evenly gap-4 w-full">
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <LiaCertificateSolid className='w-20 h-20 text-green-500' />
+            <p>ضمانت اصل بودن کالا</p>
+          </div>
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <MdHighQuality className='w-20 h-20 text-yellow-400' />
+            <p>تضمین کیفیت</p>
+          </div>
         </div>
       </div>
 
       <div className='w-11/12 mx-auto my-5'>
-        <Explanation product={JSON.parse(JSON.stringify(response))} userID={userID}>
+        <Explanation product={JSON.parse(JSON.stringify(response))} userID={userID ? JSON.parse(JSON.stringify(userID)) : ""}>
           {/* server component passed into client component */}
-          <CommentsWrapper
-            productComments={JSON.parse(JSON.stringify(response.comments))}
-          />
+          <CommentsWrapper productComments={JSON.parse(JSON.stringify(response.comments))} />
         </Explanation>
       </div>
       <div className='w-11/12 mx-auto'>

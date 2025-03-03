@@ -35,7 +35,7 @@ export const deleteFavorite = createAsyncThunk(
 export const getUserFavorites = createAsyncThunk(
   "Favorites/getUserFavorites",
   async (userID) => {
-    return fetch(`api/favorite?userID=${userID}`, {
+    return fetch(`/api/favorite?userID=${userID}`, {
       method: "GET",
     })
       .then((res) => res.json())

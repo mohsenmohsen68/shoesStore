@@ -20,7 +20,7 @@ async function page() {
   return (
     <div className='mt-28 mb-4'>
       <div className='mb-4'>
-        <BreadCrumb title={"تماس با ما "} />
+        <BreadCrumb titles={"تماس با ما "} />
       </div>
       <div className='flex w-full items-center gap-4 p-4 mb-4'>
         <div className='w-1/2 h-96 bg-red-500 relative flex justify-center'>
@@ -49,7 +49,7 @@ async function page() {
           <Information />
         </div>
         <div className='w-1/2'>
-          <ContactusForm userID={JSON.parse(JSON.stringify(user._id))} />
+          <ContactusForm userID={user ? JSON.parse(JSON.stringify(user?._id)) : null} />
         </div>
         <div></div>
       </div>

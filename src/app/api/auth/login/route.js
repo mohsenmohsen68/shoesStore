@@ -24,6 +24,12 @@ export async function POST(req) {
 
   const user = await userModel.findOne({ phoneNumber });
   console.log("user", user)
+  if(!user){
+    return Response.json({
+      message: "the phonenumber or pass is wrong",
+      status: 422
+    }); 
+  }
   const isCorrectPassword = await verifyPassword(password, user.password);
   console.log("kkkkk :::: ", isCorrectPassword);
   if (!isCorrectPassword) {

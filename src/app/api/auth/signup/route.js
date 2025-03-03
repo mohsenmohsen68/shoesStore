@@ -29,7 +29,7 @@ export async function POST(req) {
     }
 
     const newPassword = await hashPassword(password);
-    const accessToken = generateAccessToken({ userName })
+    const accessToken = generateAccessToken({ phoneNumber })
 
     const allUsers = await userModel.find({});
     if (!role) {

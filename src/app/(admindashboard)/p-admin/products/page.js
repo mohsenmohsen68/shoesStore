@@ -26,8 +26,6 @@ async function page() {
       redirect("/login");
     }
 
-
-
     return (
         <div className='w-full h-[calc(100%-80px)]  '>
       <AdminProducts products={JSON.parse(JSON.stringify(products))} user={JSON.parse(JSON.stringify(user))} />

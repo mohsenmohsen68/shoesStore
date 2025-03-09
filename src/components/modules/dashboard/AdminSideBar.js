@@ -8,6 +8,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { LiaShoePrintsSolid } from "react-icons/lia";
 import Link from "next/link";
 import SideBarLogout from "./SideBarLogout";
+import { RiArticleLine } from "react-icons/ri";
 
 function SideBar() {
   return (
@@ -33,12 +34,19 @@ function SideBar() {
         </div>
         </Link>
         <Link href={'/p-admin/comments'} className="w-full">
-
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
             <FaRegComments className='text-2xl text-sky-500' />
           </div>
           <div>کامنت ها </div>
+        </div>
+        </Link>
+        <Link href={'/p-admin/articles'} className="w-full">
+        <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
+          <div className='w-1/6 flex justify-center items-center'>
+            <RiArticleLine className='text-2xl text-sky-500' />
+          </div>
+          <div>مقاله ها </div>
         </div>
         </Link>
         <Link href={'/p-admin/orders'} className="w-full">

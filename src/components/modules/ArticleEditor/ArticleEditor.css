@@ -1,0 +1,7 @@
+/* /* Defining the default content styles for the block images.
+This is what the newly inserted image without any
+style-specific class will look like. */
+
+.image-style-align-center{
+    text-align: center;
+}

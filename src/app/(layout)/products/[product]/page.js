@@ -17,32 +17,33 @@ import { verifyAccessToken } from "@/root/util/auth/auth";
 import userModel from "@/root/models/User";
 import CommentsWrapper from "@/components/modules/CommentsWrapper";
 import SimillarProducts from "@/components/modules/SimillarProducts";
+import { BiLogoTelegram } from "react-icons/bi";
+import { Ri24HoursFill } from "react-icons/ri";
 
 export default async function page({ params }) {
   connectToDB();
+  console.log("params : ", params)
   let user = null;
   const token = cookies().get("token");
   if (token) {
     const tokenPayLoad = verifyAccessToken(token.value);
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
-      // console.log("u/ssser : ", user);
     }
   }
   const id = params.product;
-  const userID = user._id
-  console.log('ddddddd : ',id)
+  const userID = user?._id
   const response = await productModel.findOne({ _id: id });
   const allProducts = await productModel.find({})
-  console.log("ggg", response,"zzz : ", allProducts)
 
   return (
     <div className='w-full flex flex-col gap-4 my-9'>
-      <div className='w-11/12 flex mt-24 gap-4 mx-auto '>
-        <div className='w-2/5 h-[500px] '>
-          <ProductSwiper />
+      {/* product top section */}
+      <div className='w-11/12 flex md:flex-col mt-24 gap-4 mx-auto '>
+        <div className='w-2/5 md:w-full h-[500px] '>
+          <ProductSwiper pictures={JSON.parse(JSON.stringify(response.img))} />
         </div>
-        <div className='w-3/5 flex flex-col'>
+        <div className='w-3/5 md:w-full flex flex-col'>
           <div className='flex w-full'>
             <div className='w-11/12 m-0'>
               <BreadCrumb titles={id} />
@@ -103,7 +104,8 @@ export default async function page({ params }) {
             ))}
           </div>
           <div>
-            <div className='mr-2 mt-4'>
+            <div className='mr-2 mt-4 flex gap-2'>
+              <p className='font-BYekanBold'> قیمت :</p>
               <p className='font-BYekanBold'>
                 {response.price.toLocaleString("fa-ir")} تومان
               </p>
@@ -115,34 +117,37 @@ export default async function page({ params }) {
             </div>
           </div>
           <hr className=' border-slate-400' />
-          <div className='mr-4 mt-4'>
+          <div className='mr-4 mt-4 flex flex-col gap-2'>
             <div className='font-BYekan'>
               {" "}
               <span className='font-BYekanBold'>شناسه محصول :</span> {id}{" "}
             </div>
-            <div className='font-BYekan'>
+            <div className='font-BYekan flex gap-2'>
               <span className='font-BYekanBold'>دسته :</span>
-              {response.category?.map((item) => `${item}, `)}
+              {response.suitableFor === "MAN" ? "مردانه" : response.suitableFor === "WOMAN" ? "زنانه" : "کفش کودک"}
             </div>
-            <div className='font-BYekan'>
+            <div className='font-BYekan flex gap-2'>
               <span className='font-BYekanBold'>برچسب :</span>
-              {response.tags?.map((item) => `${item}, `)}
+              {response.tags?.map((item) => `${item}، `)}
             </div>
             <div className='font-BYekan'>
               <span className='font-BYekanBold'>اشتراک گذاری : </span>
               <IoLogoInstagram className='text-red-600 text-xl inline' />
+              <BiLogoTelegram className='text-blue-600 text-3xl inline' />
             </div>
 
             <div></div>
           </div>
           <hr className=' border-slate-400' />
           <div className='flex flex-col gap-4 mt-4 pr-4'>
-            <p className='text-green-800-800 font-BYekanBold '>
-              تعداد کالای موجود :
+            <div className='text-green-500 font-BYekanBold flex gap-2'>
+              <p>
+                تعداد کالای موجود :
+              </p>
               {response.count > 0
                 ? response.count.toLocaleString("fa-ir")
                 : "موجودی این محصول به اتمام رسیده است ..."}
-            </p>
+            </div>
             <div className='flex items-center'>
               <p className=' font-BYekanBold '>سایز های موجود :</p>
               {response.size.map((item) => (
@@ -154,41 +159,48 @@ export default async function page({ params }) {
             <div className='flex items-center'>
               <p className=' font-BYekanBold '>رنگ های موجود :</p>
               {response.color.map((item) => (
-                <p
-                  className={`w-5 h-5 hover:scale-125 transition-all mr-4 ${item} rounded-full border-[1px] border-black`}
+                <p style={{ backgroundColor: item }}
+                  className={`w-5 h-5 hover:scale-125 transition-all mr-4 rounded-full border-[1px] border-black`}
                 ></p>
               ))}
             </div>
             <div className='flex items-center'>
-               <AddToFavorites userID={user._id} productID={response._id}/>
+              <AddToFavorites userID={userID ? JSON.parse(JSON.stringify(userID)) : ""} productID={JSON.parse(JSON.stringify(response._id))} />
               <div className='mr-4 font-BYekan'>افزودن به علاقه مندی ها</div>
             </div>
-            <AddToShoppingCart />
-            <hr className='border-slate-400' />
-            <div className='flex justify-evenly'>
-              <div className='flex flex-col justify-center items-center'>
-                <CiDeliveryTruck className='w-20 h-20 text-orange-500' />
-                <p>تحویل سریع و آسان</p>
-              </div>
-              <div className='flex flex-col justify-center items-center'>
-                <LiaCertificateSolid className='w-20 h-20 text-green-500' />
-                <p>ضمانت اصل بودن کالا</p>
-              </div>
-              <div className='flex flex-col justify-center items-center'>
-                <MdHighQuality className='w-20 h-20 text-yellow-200' />
-                <p>تضمین کیفیت</p>
-              </div>
-            </div>
+            <AddToShoppingCart product={JSON.parse(JSON.stringify(response))} />
+
+          </div>
+        </div>
+      </div>
+      <hr className='border-slate-400' />
+      <div className='flex justify-evenly md:flex-col md:gap-4 my-5'>
+        <div className="flex justify-evenly gap-4 w-full">
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <CiDeliveryTruck className='w-20 h-20 text-orange-500' />
+            <p>تحویل سریع و آسان</p>
+          </div>
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <Ri24HoursFill className='w-20 h-20 text-blue-500' />
+            <p>ارایه شبانه روزی خدمات</p>
+          </div>
+        </div>
+        <div className="flex justify-evenly gap-4 w-full">
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <LiaCertificateSolid className='w-20 h-20 text-green-500' />
+            <p>ضمانت اصل بودن کالا</p>
+          </div>
+          <div className='flex flex-col justify-center items-center text-lg font-BYekanBold'>
+            <MdHighQuality className='w-20 h-20 text-yellow-400' />
+            <p>تضمین کیفیت</p>
           </div>
         </div>
       </div>
 
-      <div className='w-11/12 mx-auto'>
-        <Explanation product={JSON.parse(JSON.stringify(response))} userID={userID}>
+      <div className='w-11/12 mx-auto my-5'>
+        <Explanation product={JSON.parse(JSON.stringify(response))} userID={userID ? JSON.parse(JSON.stringify(userID)) : ""}>
           {/* server component passed into client component */}
-          <CommentsWrapper
-            productComments={JSON.parse(JSON.stringify(response.comments))}
-          />
+          <CommentsWrapper productComments={JSON.parse(JSON.stringify(response.comments))} />
         </Explanation>
       </div>
       <div className='w-11/12 mx-auto'>

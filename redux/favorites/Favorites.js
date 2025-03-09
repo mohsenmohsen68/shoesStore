@@ -32,6 +32,16 @@ export const deleteFavorite = createAsyncThunk(
       .then((data) => data);
   }
 );
+export const getUserFavorites = createAsyncThunk(
+  "Favorites/getUserFavorites",
+  async (userID) => {
+    return fetch(`/api/favorite?userID=${userID}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
 
 const slice = createSlice({
   name: "Favorites",
@@ -44,6 +54,10 @@ const slice = createSlice({
       console.log("action : ", action);
     });
     builder.addCase(deleteFavorite.fulfilled, (state, action) => {
+      console.log("state : ", state);
+      console.log("action : ", action);
+    });
+    builder.addCase(getUserFavorites.fulfilled, (state, action) => {
       console.log("state : ", state);
       console.log("action : ", action);
     });

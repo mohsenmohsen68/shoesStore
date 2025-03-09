@@ -5,9 +5,10 @@ import { MdOutlineSupportAgent } from "react-icons/md";
 import { FaRegComments } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
-import { IoReorderFourSharp } from "react-icons/io5";
+import { LiaShoePrintsSolid } from "react-icons/lia";
 import Link from "next/link";
 import SideBarLogout from "./SideBarLogout";
+import { RiArticleLine } from "react-icons/ri";
 
 function SideBar() {
   return (
@@ -33,12 +34,19 @@ function SideBar() {
         </div>
         </Link>
         <Link href={'/p-admin/comments'} className="w-full">
-
         <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
           <div className='w-1/6 flex justify-center items-center'>
             <FaRegComments className='text-2xl text-sky-500' />
           </div>
           <div>کامنت ها </div>
+        </div>
+        </Link>
+        <Link href={'/p-admin/articles'} className="w-full">
+        <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
+          <div className='w-1/6 flex justify-center items-center'>
+            <RiArticleLine className='text-2xl text-sky-500' />
+          </div>
+          <div>مقاله ها </div>
         </div>
         </Link>
         <Link href={'/p-admin/orders'} className="w-full">
@@ -56,6 +64,14 @@ function SideBar() {
           </div>
           <div>کاربران</div>
         </div>
+        </Link>
+        <Link href={'/p-admin/products'} className="w-full">
+          <div className='flex w-full h-10 p-2 hover:bg-gray-100 hover:border-l-8 hover:border-sky-500 hover:cursor-pointer transition-all ease-in-out'>
+            <div className='w-1/6 flex justify-center items-center'>
+              <LiaShoePrintsSolid className='text-2xl text-yellow-400' />
+            </div>
+            <div>محصولات</div>
+          </div>
         </Link>
         <Link href={'/p-admin/settings'} className="w-full">
 

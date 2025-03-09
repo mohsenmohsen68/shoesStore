@@ -6,13 +6,10 @@ import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
 import ArticleBox from "./ArticleBox";
 
-export default function ArticlesSwiper() {
+export default function ArticlesSwiper({articles}) {
   return (
     <div className="z-0 mt-14 mb-9">
-      <p className="block text-2xl text-center my-4 md:text-xl sm:text-base">
-        <span className="text-red-600 text-3xl">❤</span>دانستنی های جذاب در مورد
-        کفش<span className="text-red-600 text-3xl">❤</span>
-      </p>
+      
       <Swiper
         navigation={true}
         rewind={true}
@@ -40,27 +37,12 @@ export default function ArticlesSwiper() {
         modules={[Navigation, Autoplay]}
         className="w-11/12 h-72 "
       >
+        {articles.map(item=>(
         <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-          <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
+          <ArticleBox article={JSON.parse(JSON.stringify(item))} />
         </SwiperSlide>
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-        <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
-        </SwiperSlide>
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-        <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
-        </SwiperSlide>
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-        <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
-        </SwiperSlide>
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-        <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
-        </SwiperSlide>
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-        <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
-        </SwiperSlide>
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
-        <ArticleBox image={'/img/banner2.jpg'} title={"انتخاب کفش مناسب"} writer={"علی علوی"} />
-        </SwiperSlide>
+        ))}
+        
       </Swiper>
     </div>
   );

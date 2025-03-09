@@ -11,24 +11,25 @@ export default function CreateComment({ productID, userID }) {
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
   const dispatch = useDispatch();
+console.log("useruseruser : ", userID)
   const handleRating = (rate) => {
     setRating(rate);
     console.log(rate);
   };
 
   useEffect(() => {
-    const res = fetch("/api/auth/me", {
-      method: "POST",
-      "Content-Type": "application/json",
-      body: JSON.stringify({ _id: userID })
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("bbbbbb : ", data);
-        setUserName(data.data.userName);
-        setEmail(data.data.email);
-      });
-    console.log("reeees", res);
+    if (userID) {
+      fetch("/api/auth/me", {
+        method: "POST",
+        "Content-Type": "application/json",
+        body: JSON.stringify({ _id: userID })
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUserName(data.data.userName);
+          setEmail(data.data.email);
+        });
+    }
   }, []);
 
   const addCommentHandler = async () => {
@@ -38,10 +39,10 @@ export default function CreateComment({ productID, userID }) {
       product: productID,
       user: userID,
     };
-    if ( body.trim() === "") {
+    if (body.trim() === "") {
       return toast.error(
         <div className='font-BYekan text-sm'>
-           نظر نمیتواند خالی باشد ...
+          نظر نمیتواند خالی باشد ...
         </div>,
         {
           duration: 4000,
@@ -50,7 +51,6 @@ export default function CreateComment({ productID, userID }) {
       );
     } else {
       const res = await dispatch(createANewComment(commentBody));
-      console.log("res ...", res);
       if (res.payload.status === 201) {
         setBody("");
         return toast.success(
@@ -77,7 +77,7 @@ export default function CreateComment({ productID, userID }) {
   };
 
   return (
-    <div className='flex flex-col font-BYekan w-1/2 h-fit px-4'>
+    <div className='flex flex-col font-BYekan w-1/2 md:w-full h-fit pr-8 '>
       <div className='text-lg'>دیدگاه خود را بنویسید ...</div>
       <p>
         نشانی ایمیل شما منتشر نخواهد شد، قسمت های مورد نیاز با * نشانه گذاری شده
@@ -123,6 +123,7 @@ export default function CreateComment({ productID, userID }) {
         </label>
       </div>
       <button
+        disabled={userID ? false : true}
         onClick={addCommentHandler}
         className='p-2 text-white font-BYekan text-lg mt-2 w-40 bg-green-500 rounded-xl hover:bg-green-400'
       >

@@ -26,6 +26,8 @@ async function pages() {
       .populate("product")
       .lean();
     console.log("-----", favorites);
+  }else{
+    favorites = []
   }
 
   return (

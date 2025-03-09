@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 require('./Product')
+require('./User')
 
 const schema = new mongoose.Schema({
-    
     commentBody: {
         type: String,
         required: true,

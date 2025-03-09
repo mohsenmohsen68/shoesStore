@@ -1,4 +1,3 @@
-
 import "./globals.css";
 import AosInit from "../../../util/AosInit";
 import ScrollToTop from "@/components/modules/ScrollToTop";
@@ -18,7 +17,6 @@ export default async function RootLayout({ children }) {
     const tokenPayLoad = verifyAccessToken(token.value)
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
-      // console.log("ussser : ", user)
     }
   }
 
@@ -26,7 +24,7 @@ export default async function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
 
       <body >
-        <NavBar isLogedIn={user ? true : false} />
+        <NavBar isLogedIn={user ? true : false} user={user ? JSON.parse(JSON.stringify(user)) : ""}/>
         <ScrollToTop />
         <AosInit />
         {children}

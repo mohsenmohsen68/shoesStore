@@ -9,7 +9,7 @@ export default async function rules() {
     <div className="mt-28 rounded-lg">
       <BreadCrumb titles={"قوانین"} />
       <div className='flex justify-center w-full '>
-        <div className='container mt-2 mb-2 p-4  bg-white rounded-lg mx-2 shadow-xl'>
+        <div className='container mt-2 mb-4 p-4  bg-white rounded-lg mx-2 shadow-xl dark:shadow-md dark:bg-slate-800 dark:shadow-slate-500'>
           <div className='font-BYekanBold mt-2 mb-2 w-full flex justify-center '>
             شرایط و قوانین کفش جلوه
           </div>

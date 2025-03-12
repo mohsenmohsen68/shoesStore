@@ -73,7 +73,7 @@ function ContactusForm({ userID }) {
     }
   };
   return (
-    <div className='flex flex-col gap-2 justify-center items-center p-4 shadow-lg mx-4 '>
+    <div className='flex flex-col gap-2 justify-center items-center p-4 shadow-lg mx-4 dark:shadow-md dark:bg-slate-800 dark:shadow-slate-500 '>
       <div className='font-BYekan text-sm'> فرم تماس با ما </div>
       <div className='font-BYekan text-xl'>
         برای تماس با ما فرم زیر را پر کنید ...

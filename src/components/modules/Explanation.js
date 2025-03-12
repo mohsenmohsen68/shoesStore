@@ -13,7 +13,7 @@ function explanation({ product, children, userID }) {
     <div>
       <div className='flex justify-center gap-2 my-5'>
         <button
-          className={`${explain ? "bg-gray-700 text-white" : "bg-white"} font-BYekan border border-gray-700 hover:bg-gray-700 hover:text-white rounded-full p-2`}
+          className={`${explain ? "bg-gray-700 dark:bg-white dark:text-black text-white" : "bg-white"} font-BYekan border dark:bg-slate-800 border-gray-700 hover:bg-gray-700 hover:text-white rounded-full p-2`}
           onClick={() => {
             setExplain(true);
             setComments(false);
@@ -23,7 +23,7 @@ function explanation({ product, children, userID }) {
           توضیحات
         </button>
         <button
-          className={`${moreInfo ? "bg-gray-700 text-white" : "bg-white"} font-BYekan border border-gray-700 hover:bg-gray-700 hover:text-white rounded-full p-2`}
+          className={`${moreInfo ? "bg-gray-700 dark:bg-white dark:text-black  text-white" : "bg-white"} font-BYekan border dark:bg-slate-800 border-gray-700 hover:bg-gray-700 hover:text-white rounded-full p-2`}
           onClick={() => {
             setExplain(false);
             setComments(false);
@@ -33,7 +33,7 @@ function explanation({ product, children, userID }) {
           اطلاعات بیشتر
         </button>
         <button
-          className={`${comments ? "bg-gray-700 text-white" : "bg-white"} font-BYekan border border-gray-700 hover:bg-gray-700 hover:text-white rounded-full p-2`}
+          className={`${comments ? "bg-gray-700 dark:bg-white dark:text-black text-white" : "bg-white"} font-BYekan border dark:bg-slate-800 border-gray-700 hover:bg-gray-700 hover:text-white rounded-full p-2`}
           onClick={() => {
             setExplain(false);
             setComments(true);

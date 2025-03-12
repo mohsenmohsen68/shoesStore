@@ -48,7 +48,7 @@ export default async function page({ params }) {
             <div className='w-11/12 m-0'>
               <BreadCrumb titles={id} />
             </div>
-            <div className='w-1/12 flex bg-slate-100 rounded-lg m-0 justify-evenly items-center'>
+            <div className='w-1/12 flex bg-slate-100 dark:bg-slate-800  dark:border-slate-300 rounded-lg m-0 justify-evenly items-center'>
               <div>
                 <svg
                   className='w-4 h-4 text-gray-800 dark:text-white hover:cursor-pointer'
@@ -95,7 +95,7 @@ export default async function page({ params }) {
             </p>
           </div>
           <div className='flex justify-start mt-4 items-center'>
-            <p className='font-BYekan'> دیدگاه کاربران:</p>
+            <p className='font-BYekan '> دیدگاه کاربران:</p>
             {new Array(response.wholeScore).fill(0).map(() => (
               <FaStar className='m-0 p-o text-yellow-400' />
             ))}

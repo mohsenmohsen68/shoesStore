@@ -6,7 +6,7 @@ import Link from 'next/link'
 function Notfound() {
    // const user =await authUser()
    return (
-      <div className='flex flex-col items-center justify-center bg-slate-300 h-dvh w-full'>
+      <div className='flex flex-col items-center justify-center bg-slate-800 h-dvh w-full'>
          {/* <NavBar isLogedIn={user ? true : false}/> */}
          <div>
             <p className='font-BYekan text-2xl mt-28 ' >صفحه ای که دنبالشی وجود نداره ...</p>

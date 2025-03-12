@@ -1,21 +1,27 @@
-"use client"
-import "./(layout)/globals.css";
-import { Providers } from "@/redux/provider";
+require("dotenv").config();
 
-// export const metadata = {
-//   title: "Shoes Store || فروشگاه کفش جلوه",
-//   description: "shop store generated with next v13",
-//   icons: {
-//     icon: "/img/1.jpg"
-//   }
-// };
+import { Providers } from "@/redux/provider";
+import { ThemeProvider } from "next-themes";
+import './globals.css'
+
+export const metadata = {
+  title: "Shoes Store || فروشگاه کفش جلوه",
+  description: "shop store generated with next v13",
+  icons: "/img/1.jpg"
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='fa' dir='rtl'>
-      <Providers>
-        <body >{children}</body>
-      </Providers>
-    </html>
+    <Providers>
+      <html lang='fa' dir='rtl' suppressHydrationWarning={true}>
+        <body>
+          <ThemeProvider attribute='class'>
+
+            {children}
+
+          </ThemeProvider>
+        </body>
+      </html>
+    </Providers>
   );
 }

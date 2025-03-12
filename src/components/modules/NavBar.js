@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { SlBasket } from "react-icons/sl";
+import { HiSun } from "react-icons/hi";
+import { HiMoon } from "react-icons/hi";
 import { FaRegHeart } from "react-icons/fa";
-import { FaShuffle } from "react-icons/fa6";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { TiShoppingCart } from "react-icons/ti";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,8 @@ import { getUserFavorites } from "@/root/redux/favorites/Favorites";
 import { FaRegUser } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
+import "./../../app/globals.css"
 
 export default function NavBar({ isLogedIn, user }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -20,7 +22,9 @@ export default function NavBar({ isLogedIn, user }) {
   const [favorites, setFavorites] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log("userrrr : ", user);
+  const { theme, setTheme } = useTheme();
+  console.log('theme .....',theme)
+
 
   const logoutHandler = () => {
     Swal.fire({
@@ -111,7 +115,7 @@ export default function NavBar({ isLogedIn, user }) {
     <>
       <div
         className={`flex items-center justify-between ${fixTop ? "sticky top-0" : "absolute top-4"
-          } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg font-BYekan w-full transition-all`}
+          } px-4 py-[2px] bg-slate-200 z-10 sm:hidden border h-20 shadow-lg font-BYekan w-full transition-all dark:bg-slate-800 dark:border-slate-800`}
       >
         <div className='w-1/10 h-full text-center md:hidden '>
           <Image
@@ -123,7 +127,7 @@ export default function NavBar({ isLogedIn, user }) {
           />
         </div>
         <div className='w-8/10 h-full flex  text-center items-center  text-sm md:w-5/6 md:text-xs '>
-          <div className='flex justify-center items-center space-x-6 md:space-x-3'>
+          <div className='flex justify-center items-center space-x-6 md:space-x-3 '>
             <Link href={"/"} className='ml-6'>
               صفحه اصلی
             </Link>
@@ -136,7 +140,7 @@ export default function NavBar({ isLogedIn, user }) {
             </div>
             {!isLogedIn && <Link href={"/login"}>ثبت نام/ورود</Link>}
             {isLogedIn && (
-              <div className='flex relative items-center hover:cursor-pointer group'>
+              <div className='flex relative items-center hover:cursor-pointer group '>
                 <p>حساب کاربری</p>
                 <span>
                   <svg
@@ -153,7 +157,7 @@ export default function NavBar({ isLogedIn, user }) {
                   </svg>
                 </span>
 
-                <div className='absolute border top-5 md:top-4 rounded-lg bg-slate-300 invisible group-hover:visible overflow-hidden'>
+                <div className='absolute border top-5 md:top-4 dark:bg-slate-800 dark:border-slate-800 rounded-lg bg-slate-300 invisible group-hover:visible overflow-hidden'>
                   <ul className='flex flex-col w-32 '>
                     <Link
                       href={user.role === "ADMIN" ? "/p-admin" : "/p-user"}
@@ -235,14 +239,14 @@ export default function NavBar({ isLogedIn, user }) {
         <div className='w-1/10 h-full text-center items-center md:w-1/6 md:px-0  '>
           <div className='flex justify-evenly gap-x-3 w-full h-full items-center  '>
             <div className='w-10 h-10 rounded-full relative  flex justify-center items-center group'>
-              <div className='w-10 h-10 rounded-full relative bg-red-50 overflow-hidden flex justify-center items-center'>
+              <div className='w-10 h-10 rounded-full relative bg-red-50 overflow-hidden flex justify-center items-center '>
                 {user?.img ? (
                   <Image src={user?.img} fill={true} alt='عکس پروفایل' />
                 ) : (
                   <FaRegUser className='w-5 h-5 ' />
                 )}
               </div>
-              <div className='flex overflow-hidden absolute top-10 w-28 rounded-md border flex-col justify-center items-center bg-slate-300 invisible group-hover:visible'>
+              <div className='flex overflow-hidden absolute top-10 w-28 rounded-md border flex-col justify-center items-center bg-slate-300 invisible group-hover:visible dark:bg-slate-800 dark:border-slate-800'>
                 {isLogedIn && <Link href={"/p-user"} className='w-full'>
                   <div className='w-full p-2 hover:bg-slate-400 hover:cursor-pointer'>
                     حساب کاربری
@@ -250,7 +254,7 @@ export default function NavBar({ isLogedIn, user }) {
                 </Link>}
                 {!isLogedIn && <Link href={"/login"} className='w-full'>
                   <div className='w-full p-2 hover:bg-slate-400 flex justify-center hover:cursor-pointer'>
-                  ورود
+                    ورود
                   </div>
                 </Link>}
                 {isLogedIn && <div
@@ -266,13 +270,13 @@ export default function NavBar({ isLogedIn, user }) {
               <div className='relative hover:cursor-pointer group'>
                 <TiShoppingCart className='text-2xl' />
                 {cartData.length > 0 ? (
-                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 items-center justify-center border border-white bg-white rounded-full'>
+                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 items-center justify-center border border-white bg-white rounded-full dark:bg-slate-800 dark:border-slate-300'>
                     {cartData.length.toLocaleString("fa-IR")}
                   </span>
                 ) : (
                   <></>
                 )}
-                <div className='absolute border top-5 left-2 rounded-lg bg-slate-300 invisible group-hover:visible hover:visible overflow-y-auto no-scrollbar p-2 h-80 w-60'>
+                <div className='absolute border top-5 left-2 rounded-lg bg-slate-300 invisible group-hover:visible hover:visible overflow-y-auto no-scrollbar p-2 h-80 w-60 dark:bg-slate-800 dark:border-slate-800'>
                   {cartData.length > 0 &&
                     cartData.map((item) => (
                       <div
@@ -304,7 +308,7 @@ export default function NavBar({ isLogedIn, user }) {
               <div className='relative '>
                 <FaRegHeart className='text-xl' />
                 {favorites.length > 0 ? (
-                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 items-center justify-center border border-white bg-white rounded-full'>
+                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 items-center justify-center border border-white bg-white rounded-full dark:bg-slate-800 dark:border-slate-300'>
                     {favorites.length.toLocaleString("fa-IR")}
                   </span>
                 ) : (
@@ -312,13 +316,17 @@ export default function NavBar({ isLogedIn, user }) {
                 )}
               </div>
             </Link>
+            {/* dark mode */}
+            {theme === 'light' && (<HiMoon className="text-2xl text-yellow-500" onClick={() => setTheme("dark")} />)}
+            {theme === 'system' && (<HiMoon className="text-2xl text-yellow-500" onClick={() => setTheme("dark")} />)}
+            {theme === 'dark' && (<HiSun className="text-2xl text-yellow-500" onClick={() => setTheme("light")} />)}
           </div>
         </div>
       </div>
 
       <div
         className={`flex justify-between items-center ${fixTop ? "sticky top-0 " : "absolute top-4 "
-          } py-[2px] hidden sm:visible sm:block h-20 bg-slate-200 z-40 m-0 w-full`}
+          } py-[2px] hidden sm:visible sm:block h-20 bg-slate-200 z-40 m-0 w-full dark:bg-slate-800 dark:border-slate-800`}
       >
         <div className='flex justify-between items-center w-full h-full '>
           {/* toggle bar */}
@@ -344,15 +352,15 @@ export default function NavBar({ isLogedIn, user }) {
                   <FaRegUser className='w-5 h-5 ' />
                 )}
               </div>
-              <div className='flex overflow-hidden absolute top-10 w-28 rounded-md border flex-col justify-center items-center bg-slate-300 z-50 invisible group-hover:visible'>
-              {isLogedIn && <Link href={"/p-user"} className='w-full'>
+              <div className='flex overflow-hidden absolute top-10 w-28 rounded-md border flex-col justify-center items-center bg-slate-300 z-50 invisible group-hover:visible dark:bg-slate-800 dark:border-slate-800'>
+                {isLogedIn && <Link href={"/p-user"} className='w-full'>
                   <div className='w-full p-2 hover:bg-slate-400 hover:cursor-pointer'>
-                    حساب کاربری    
+                    حساب کاربری
                   </div>
                 </Link>}
-              {!isLogedIn && <Link href={"/login"} className='w-full'>
+                {!isLogedIn && <Link href={"/login"} className='w-full'>
                   <div className='w-full p-2 hover:bg-slate-400 hover:cursor-pointer flex justify-center'>
-                   ورود   
+                    ورود
                   </div>
                 </Link>}
                 {isLogedIn && <div
@@ -368,13 +376,13 @@ export default function NavBar({ isLogedIn, user }) {
               <div className='relative hover:cursor-pointer group'>
                 <TiShoppingCart className='text-2xl' />
                 {cartData.length > 0 ? (
-                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 flex items-center justify-center border border-white bg-white rounded-full'>
+                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 flex items-center justify-center border border-white bg-white rounded-full dark:bg-slate-800 dark:border-slate-300'>
                     {cartData.length.toLocaleString("fa-IR")}
                   </span>
                 ) : (
                   <></>
                 )}
-                <div className='absolute border top-5 left-2 rounded-lg bg-slate-300 invisible z-50 group-hover:visible overflow-y-auto no-scrollbar p-2 h-80 w-60'>
+                <div className='absolute border top-5 left-2 rounded-lg bg-slate-300 invisible z-50 group-hover:visible overflow-y-auto no-scrollbar p-2 h-80 w-60 dark:bg-slate-800 dark:border-slate-800'>
                   {cartData.length > 0 &&
                     cartData.map((item) => (
                       <div
@@ -406,7 +414,7 @@ export default function NavBar({ isLogedIn, user }) {
               <div className='relative '>
                 <FaRegHeart className='text-xl' />
                 {favorites.length > 0 ? (
-                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 flex items-center justify-center border border-white bg-white rounded-full'>
+                  <span className='absolute w-4 h-4 text-xs leading-3 -top-3 -right-2 flex items-center justify-center border border-white bg-white rounded-full dark:bg-slate-800 dark:border-slate-300'>
                     {favorites.length.toLocaleString("fa-IR")}
                   </span>
                 ) : (
@@ -421,7 +429,7 @@ export default function NavBar({ isLogedIn, user }) {
           className={`w-full text-center bg-slate-200 mt-0 font-BYekan transition-opacity ease-in-out duration-700 ${showMenu ? "opacity-100" : "opacity-0"
             }`}
         >
-          <div className='flex flex-col justify-center '>
+          <div className='flex flex-col justify-center dark:bg-slate-800 dark:border-slate-800 '>
             <Link href={"/"} className='hover:bg-slate-300 py-2'>
               صفحه اصلی
             </Link>
@@ -436,7 +444,7 @@ export default function NavBar({ isLogedIn, user }) {
             <div className='flex items-center  justify-center  hover:bg-slate-300 py-2'>
               <Link href={"/articles"}>وبلاگ</Link>
             </div>
-            {!isLogedIn && <Link href={"/login-register"}>ثبت نام / ورود</Link>}
+            {!isLogedIn && <Link href={"/login"}>ثبت نام / ورود</Link>}
             {isLogedIn && (
               <div className=' flex relative items-center justify-center hover:bg-slate-300 py-2 hover:cursor-pointer group '>
                 <p>حساب کاربری</p>
@@ -455,7 +463,7 @@ export default function NavBar({ isLogedIn, user }) {
                   </svg>
                 </span>
 
-                <div className=' absolute w-full mt-4 h-0 border top-6 bg-slate-200 overflow-hidden group-hover:h-72 transition-all duration-2000 ease-in-out'>
+                <div className=' absolute w-full mt-4 h-0 border top-6 bg-slate-200 overflow-hidden group-hover:h-72 transition-all duration-2000 ease-in-out dark:bg-slate-800 dark:border-slate-800'>
                   <ul className='flex flex-col w-full justify-center items-center '>
                     <Link
                       href={user.role === "ADMIN" ? "/p-admin" : "/p-user"}

@@ -5,11 +5,11 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className='flex w-full bg-slate-300 shadow-2xl  h-fit overflow-hidden p-7 gap-2 md:flex-col font-BYekan '>
+    <div className='flex w-full bg-slate-300 shadow-2xl  h-fit overflow-hidden p-7 gap-2 md:flex-col font-BYekan dark:border-slate-800 dark:bg-slate-800'>
       <div className='w-2/3 flex gap-2 md:w-full sm:flex-col '>
         <div
           id='shopInfo'
-          className='flex flex-col w-1/2 p-1 space-y-1 pr-2 bg-slate-300 border-b pb-2 border-b-stone-400  sm:w-full'
+          className='flex flex-col w-1/2 p-1 space-y-1 pr-2 bg-slate-300 border-b pb-2 border-b-stone-400 dark:bg-slate-800 dark:border-b-stone-300  sm:w-full'
         >
           <div className='flex gap-2 items-center '>
             <Image
@@ -39,7 +39,7 @@ export default function Footer() {
 
         <div
           id='articles'
-          className='flex flex-col w-1/2 p-1 space-y-1 bg-slate-300 border-b pb-2 border-b-stone-400 pr-2 sm:w-full '
+          className='flex flex-col dark:bg-slate-800 dark:border-b-stone-300 w-1/2 p-1 space-y-1 bg-slate-300 border-b pb-2 border-b-stone-400 pr-2 sm:w-full '
         >
           <p className='text-xl lg:text-lg md:text-base sm:text-sm'>
             جدیدترین نوشته ها
@@ -81,7 +81,7 @@ export default function Footer() {
       <div className='w-1/3 flex gap-2 md:w-full sm:flex-col'>
         <div
           id='footerMenu'
-          className='flex flex-col w-1/2 p-1 space-y-1 pr-2 sm:w-full bg-slate-300 border-b pb-2 border-b-stone-400 '
+          className='flex flex-col dark:bg-slate-800 dark:border-b-stone-300 w-1/2 p-1 space-y-1 pr-2 sm:w-full bg-slate-300 border-b pb-2 border-b-stone-400 '
         >
           <h1 className='text-xl lg:text-lg md:text-base sm:text-sm'>
             لینک های مفید
@@ -122,7 +122,7 @@ export default function Footer() {
 
         <div
           id='socials'
-          className='flex flex-col w-1/2 space-y-1 pr-2 bg-slate-300 border-b pb-2 border-b-stone-400 sm:w-full'
+          className='flex flex-col w-1/2 dark:bg-slate-800 dark:border-b-stone-300 space-y-1 pr-2 bg-slate-300 border-b pb-2 border-b-stone-400 sm:w-full'
         >
           <h1 className='text-xl lg:text-lg md:text-base sm:text-sm'>
             رسانه‌های مجازی

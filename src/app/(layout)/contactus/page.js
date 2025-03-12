@@ -18,14 +18,14 @@ async function page() {
     }
   }
   return (
-    <div className='mt-28 mb-4'>
+    <div className='mt-28 mb-4 w-full'>
       <div className='mb-4'>
         <BreadCrumb titles={"تماس با ما "} />
       </div>
-      <div className='flex w-full items-center gap-4 p-4 mb-4'>
-        <div className='w-1/2 h-96 bg-red-500 relative flex justify-center'>
+      <div className='flex md:flex-col w-full items-center gap-4 p-4 mb-4'>
+        <div className='w-1/2 md:w-full md:mb-20 h-96 bg-red-500 relative flex justify-center'>
           <Map long={35.672534} lat={51.349217}/>
-          <div className='w-3/4 h-1/2 absolute top-[calc(70%)] gap-2 bg-white shadow-lg flex flex-col justify-center items-center'>
+          <div className='w-3/4 h-1/2 absolute dark:shadow-md dark:bg-slate-800 dark:shadow-slate-500 top-[calc(70%)] gap-2 bg-white shadow-lg flex flex-col justify-center items-center'>
             <div className='text-2xl'>آدرس تولیدی </div>
             <div className='text-lg'>
               {" "}
@@ -33,9 +33,9 @@ async function page() {
             </div>
           </div>
         </div>
-        <div className='w-1/2 h-96 bg-red-500 relative flex justify-center'>
+        <div className='w-1/2 md:w-full h-96 bg-red-500 relative flex justify-center'>
           <Map long={35.708590} lat={51.390032}/>
-          <div className='w-3/4 h-1/2 absolute top-[calc(70%)] gap-2 bg-white shadow-lg flex flex-col justify-center items-center'>
+          <div className='w-3/4 h-1/2 absolute dark:shadow-md dark:bg-slate-800 dark:shadow-slate-500 top-[calc(70%)] gap-2 bg-white shadow-lg flex flex-col justify-center items-center'>
             <div className='text-2xl'>آدرس فروشگاه </div>
             <div className='text-lg'>
               {" "}
@@ -44,11 +44,11 @@ async function page() {
           </div>
         </div>
       </div>
-      <div className='flex w-full items-center mt-24'>
-        <div className='w-1/2'>
+      <div className='flex md:flex-col w-full items-center mt-24'>
+        <div className='w-1/2 md:w-full md:mb-5'>
           <Information />
         </div>
-        <div className='w-1/2'>
+        <div className='w-1/2 md:w-full'>
           <ContactusForm userID={user ? JSON.parse(JSON.stringify(user?._id)) : null} />
         </div>
         <div></div>

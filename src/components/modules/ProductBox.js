@@ -10,7 +10,7 @@ export default function ProductBox({ product, children }) {
   console.log("ffff : ", product)
   return (
     <Link href={`/products/${product._id}`}>
-      <div data-aos="fade-up" className="flex flex-col w-56 h-[340px] z-0 justify-start overflow-hidden hover:cursor-pointer shadow-xl border-gray-200 mb-0">
+      <div data-aos="fade-up" className="flex flex-col w-56 h-[380px] z-0 justify-start overflow-hidden hover:cursor-pointer shadow-xl dark:shadow-yellow-50 dark:shadow-sm border-gray-200 mb-0 dark:bg-slate-800">
         <div className="w-full overflow-hidden relative group h-1/2">
           <img
             src={product.img[0] || "/img/banner4.jpg"}

@@ -27,31 +27,33 @@ export default async function RootLayout({ children }) {
     if (tokenPayLoad) {
       user = await userModel.findOne({ phoneNumber: tokenPayLoad.phoneNumber });
       // console.log("ussser : ", user)
-    }else{
+    } else {
       redirect('/login')
     }
-  }else{
+  } else {
     redirect('/login')
   }
-  if(user.role !== "USER"){
+  if (user.role !== "USER") {
     redirect('/p-admin')
   }
 
   return (
-    <html lang='fa' dir='rtl'>
-      <body>
-        <div className='w-full flex h-dvh'>
-          <div className='w-1/5'>
-            <SideBar />
-          </div>
-          <div className='w-4/5'>
-            <Header username={user.userName} role={user.role}/>
-            {children}
-          </div>
+    <>
+      {/* <html lang='fa' dir='rtl'>
+      <body> */}
+      <div className='w-full flex h-dvh'>
+        <div className='w-1/5'>
+          <SideBar />
         </div>
-        <ScrollToTop />
-        <AosInit />
-      </body>
-    </html>
+        <div className='w-4/5'>
+          <Header username={user.userName} role={user.role} />
+          {children}
+        </div>
+      </div>
+      <ScrollToTop />
+      <AosInit />
+      {/* </body>
+      </html> */}
+    </>
   );
 }

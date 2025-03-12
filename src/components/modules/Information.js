@@ -12,7 +12,7 @@ function Information() {
     const phoneNumber = 123456789;
     const cellphone = 93305984848;
   return (
-    <div className='flex flex-col gap-2 justify-center items-center p-4 shadow-lg mx-4 '>
+    <div className='flex flex-col gap-2 justify-center items-center p-4 shadow-lg mx-4 dark:shadow-md dark:bg-slate-800 dark:shadow-slate-500'>
       <div className='font-BYekan text-sm'>تماس با ما</div>
       <div className='font-BYekan text-xl'>اطلاعات تماس</div>
       <div className='flex justify-between items-center w-full'>

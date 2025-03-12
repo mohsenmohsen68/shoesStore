@@ -38,7 +38,7 @@ export default function ArticlesSwiper({articles}) {
         className="w-11/12 h-72 "
       >
         {articles.map(item=>(
-        <SwiperSlide className="flex text-base bg-slate-300 items-center justify-center w-1/4 gap-2 h-full">
+        <SwiperSlide className=" text-base flex items-center justify-center gap-2">
           <ArticleBox article={JSON.parse(JSON.stringify(item))} />
         </SwiperSlide>
         ))}

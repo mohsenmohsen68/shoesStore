@@ -21,15 +21,17 @@ export default async function RootLayout({ children }) {
   }
 
   return (
-    <html lang="fa" dir="rtl">
+    <div>
+      {/* <html lang="fa" dir="rtl"> */}
 
-      <body >
-        <NavBar isLogedIn={user ? true : false} user={user ? JSON.parse(JSON.stringify(user)) : ""}/>
-        <ScrollToTop />
-        <AosInit />
-        {children}
-        <Footer />
-      </body>
-    </html>
+      {/* <body > */}
+      <NavBar isLogedIn={user ? true : false} user={user ? JSON.parse(JSON.stringify(user)) : ""} />
+      <ScrollToTop />
+      <AosInit />
+      {children}
+      <Footer />
+      {/* </body> */}
+      {/* </html> */}
+    </div >
   );
 }
